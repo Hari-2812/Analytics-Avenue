@@ -1,0 +1,36 @@
+.app {
+  min-height: 100vh;
+}
+
+.section-loader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 0;
+}
+
+.section-loader-bar {
+  width: 120px;
+  height: 3px;
+  background: var(--bg-surface);
+  border-radius: 3px;
+  position: relative;
+  overflow: hidden;
+}
+
+.section-loader-bar::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -50%;
+  width: 50%;
+  height: 100%;
+  background: var(--gradient-cta);
+  border-radius: 3px;
+  animation: loaderSlide 1.2s ease-in-out infinite;
+}
+
+@keyframes loaderSlide {
+  0% { left: -50%; }
+  100% { left: 100%; }
+}

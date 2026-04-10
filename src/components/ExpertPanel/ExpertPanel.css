@@ -1,0 +1,224 @@
+/* =========================================
+   EXPERT PANEL — Solid Tech Edition
+   ========================================= */
+
+.expert-section {
+  padding: var(--section-padding);
+  background: var(--bg-deep); /* Solid #0F172A */
+  text-align: center;
+}
+
+.expert-heading {
+  margin-bottom: 48px;
+}
+
+.expert-heading .accent-rose {
+  color: #EC4899; /* Impact Text: Rose */
+}
+
+/* =========================================
+   PARENT CONTAINER: No Clipping Rules
+   ========================================= */
+.expert-container-main {
+  width: 100%;
+  /* Minimum vertical padding of 120px+ so scale(1.15) never cuts off */
+  padding: 140px 0;
+  /* overflow: visible allows the scaled center item to peek outside boundary constraints if needed */
+  overflow: visible; 
+}
+
+/* Swiper Wrapper must also allow visible overflow vertically */
+.expert-swiper-wrapper {
+  width: 100%;
+  overflow: visible !important;
+}
+
+/* We must clip horizontally to prevent page scroll overflow */
+.expert-section {
+  overflow-x: hidden;
+}
+
+/* =========================================
+   HIERARCHICAL SCALING SYSTEM
+   ========================================= */
+
+/* ==== TIER 3: OUTER LEFT/RIGHT ==== */
+/* Base class applied to all Swiper slides. 
+   Transform, Opacity, Z-Index, and Transitions are mathematically 
+   calculated by JS for continuous wave scaling. */
+.expert-slide-item {
+  width: 320px;
+  height: auto;
+  display: flex;
+  justify-content: center;
+}
+
+/* ==== TIER 2: IMMEDIATE LEFT/RIGHT ==== */
+/* Let JS handle all scaling and opacity natively */
+
+/* ==== TIER 1: ACTIVE CENTER ==== */
+/* Let JS handle scaling. CSS only applies border styling and typography below. */
+
+/* =========================================
+   SOLID TECH CARDS
+   ========================================= */
+
+/* Default Card State (Applies to Tier 2 & Tier 3) */
+.expert-card-solid {
+  width: 100%;
+  height: 520px;
+  background: #0F172A; /* Solid Deep Slate */
+  border: 1px solid #94A3B8; /* Muted Grey Border */
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  /* STRICT: No transparency, glassmorphism, or box-shadows */
+}
+
+/* Tier 1 Active Card Overrides */
+.expert-card-active {
+  border: 2px solid #6366F1; /* Solid Indigo 2px Border */
+  /* Purposefully omitting box-shadow to enforce flat tech aesthetic */
+}
+
+/* Top Accent Header block */
+.expert-card-header {
+  height: 0px; /* Hidden by default in Tier 2/3 */
+  width: 100%;
+  background: #6366F1;
+  transition: height 0.6s ease;
+  flex-shrink: 0;
+}
+
+.expert-card-active .expert-card-header {
+  height: 8px; /* Appears only on Active Center Card */
+}
+
+/* =========================================
+   CARD CONTENTS
+   ========================================= */
+
+.expert-avatar-box {
+  width: 100%;
+  height: 220px;
+  overflow: hidden;
+  background: #1E293B; /* Slightly lighter solid box for avatar */
+  flex-shrink: 0;
+  border-bottom: 1px solid #94A3B8; /* Separator for flat aesthetic */
+}
+
+.expert-card-active .expert-avatar-box {
+  border-bottom: 1px solid #6366F1; /* matches active border */
+}
+
+.expert-avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;   /* ✅ changed from cover → contain */
+  object-position: center; /* ✅ keeps image centered */
+  transition: transform 0.6s ease;
+  background: #1E293B; /* optional: fills empty space nicely */
+}
+/* Simple hover interaction */
+.expert-card-solid:hover .expert-avatar-img {
+  transform: scale(1.05);
+}
+
+.expert-card-body {
+  padding: 24px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Default Typography: Inactive Names (Grey, Plus Jakarta Sans) */
+.expert-name-text {
+  font-family: var(--font-body);
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #94A3B8;
+  margin-bottom: 6px;
+  transition: all 0.6s ease;
+}
+
+/* Active Typography: Center Name (Indigo, Syne) */
+.expert-card-active .expert-name-text {
+  font-family: var(--font-heading);
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: #6366F1;
+}
+
+.expert-role-text {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #94A3B8; /* Grey Body Text */
+  display: block;
+  margin-bottom: 14px;
+}
+
+.expert-bio-text {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  color: #F1F5F9; /* Using standard text for legibility over pure Grey */
+  line-height: 1.6;
+  margin-bottom: 16px;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  flex: 1;
+}
+
+.expert-skills-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: auto;
+}
+
+.expert-skill-pill {
+  padding: 4px 12px;
+  background: transparent;
+  border-radius: 100px;
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: #94A3B8;
+  border: 1px solid #94A3B8;
+  transition: all 0.6s ease;
+}
+
+/* Pop of color for the active card's pills */
+.expert-card-active .expert-skill-pill {
+  border-color: rgba(236, 72, 153, 0.4); /* Subtle Rose border to match Impact requested color */
+  color: #F1F5F9;
+}
+
+/* ===== MOBILE ===== */
+@media (max-width: 768px) {
+  .expert-container-main {
+    padding: 60px 0;
+  }
+  
+  .expert-slide-item {
+    width: 280px;
+    transform: scale(0.85); /* Slightly larger baseline for mobile legibility */
+  }
+  
+  .expert-slide-item.swiper-slide-prev,
+  .expert-slide-item.swiper-slide-next {
+    transform: scale(0.95);
+  }
+  
+  .expert-slide-item.swiper-slide-active {
+    transform: scale(1.05); /* Max scale for mobile center */
+  }
+
+  .expert-card-solid {
+    height: 500px;
+  }
+}

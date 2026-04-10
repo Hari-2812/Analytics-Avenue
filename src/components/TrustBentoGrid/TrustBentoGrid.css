@@ -1,0 +1,151 @@
+/* ========== TRUST BENTO GRID ========== */
+.bento-section {
+  padding: var(--section-padding);
+  background: var(--bg-deep);
+  text-align: center;
+}
+
+.bento-heading {
+  margin-bottom: 48px;
+}
+
+.bento-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: auto;
+  gap: 20px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+/* Size variants */
+.bento-large {
+  grid-column: span 2;
+  grid-row: span 2;
+}
+
+.bento-medium {
+  grid-column: span 1;
+  grid-row: span 1;
+}
+
+.bento-small {
+  grid-column: span 1;
+  grid-row: span 1;
+}
+
+/* Card */
+.bento-item {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: border-color var(--transition-smooth), transform var(--transition-smooth);
+  text-align: left;
+}
+
+.bento-item:hover {
+  border-color: var(--accent-indigo);
+  transform: translateY(-4px);
+}
+
+.bento-image-wrapper {
+  width: 100%;
+  overflow: hidden;
+}
+
+.bento-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--transition-smooth);
+}
+
+.bento-item:hover .bento-image {
+  transform: scale(1.03);
+}
+
+.bento-content {
+  padding: 24px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.bento-tag {
+  font-family: var(--font-heading);
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--accent-rose);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.bento-stat {
+  font-family: var(--font-heading);
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: var(--accent-indigo);
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+.bento-title {
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-heading);
+  margin-bottom: 8px;
+}
+
+.bento-desc {
+  font-size: 0.85rem;
+  color: var(--text-body);
+  line-height: 1.6;
+}
+
+/* Large card specifics */
+.bento-large .bento-image-wrapper {
+  height: 260px;
+}
+
+.bento-large .bento-title {
+  font-size: 1.3rem;
+}
+
+/* Medium card image */
+.bento-medium .bento-image-wrapper {
+  height: 180px;
+}
+
+/* ===== MOBILE ===== */
+@media (max-width: 768px) {
+  .bento-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .bento-large,
+  .bento-medium,
+  .bento-small {
+    grid-column: span 1;
+    grid-row: span 1;
+  }
+
+  .bento-large .bento-image-wrapper {
+    height: 200px;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .bento-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .bento-large {
+    grid-column: span 2;
+    grid-row: span 1;
+  }
+}
