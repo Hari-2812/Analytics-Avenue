@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { memo, useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import './SampleProjects.css'
@@ -74,20 +74,24 @@ const projects = [
   },
 ]
 
-function ProjectCard({ project }) {
+const ProjectCard = memo(function ProjectCard({ project }) {
   const [imgError, setImgError] = useState(false)
 
   return (
     <div className="project-card" id={`project-${project.id}`}>
       <div className="project-image-wrap">
         {!imgError ? (
-          <img
-            src={project.image}
-            alt={project.title}
-            className="project-image"
-            loading="lazy"
-            onError={() => setImgError(true)}
-          />
+          <picture>
+            <source srcSet={project.image.replace(/\.jpg$/, '.webp')} type="image/webp" />
+            <img
+              src={project.image}
+              alt={project.title}
+              className="project-image"
+              loading="lazy"
+              decoding="async"
+              onError={() => setImgError(true)}
+            />
+          </picture>
         ) : (
           <div className="project-fallback">
             <span className="project-fallback-icon">
@@ -128,7 +132,7 @@ function ProjectCard({ project }) {
       </div>
     </div>
   )
-}
+})
 
 export default function SampleProjects() {
   const sectionRef = useRef(null)

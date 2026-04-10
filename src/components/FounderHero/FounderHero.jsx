@@ -1,138 +1,169 @@
-import { useEffect, useRef } from 'react'
-import gsap from 'gsap'
+import { useEffect, useMemo, useRef } from 'react'
 import './FounderHero.css'
 
 export default function FounderHero() {
   const sectionRef = useRef(null)
   const imageRef = useRef(null)
-  const contentRef = useRef(null)
   const glowRef = useRef(null)
   const particlesRef = useRef(null)
   const badgeRef = useRef(null)
   const statsRef = useRef(null)
 
   useEffect(() => {
-    const ctx = gsap.context(() => {
-      const master = gsap.timeline({ defaults: { ease: 'power4.out' } })
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      return undefined
+    }
 
-      /* Background glow ring pulse */
-      gsap.to(glowRef.current, {
-        scale: 1.15,
-        opacity: 0.6,
-        duration: 3,
-        repeat: -1,
-        yoyo: true,
-        ease: 'sine.inOut',
-      })
+    let ctx
+    const runAnimations = async () => {
+      const { default: gsap } = await import('gsap')
 
-      /* Floating particles */
-      const particles = particlesRef.current?.querySelectorAll('.fh-particle')
-      if (particles) {
-        particles.forEach((p, i) => {
-          gsap.set(p, { opacity: 0 })
-          gsap.to(p, {
-            opacity: parseFloat(p.dataset.opacity) || 0.4,
-            y: `random(-40, 40)`,
-            x: `random(-30, 30)`,
-            duration: `random(4, 8)`,
-            repeat: -1,
-            yoyo: true,
-            ease: 'sine.inOut',
-            delay: i * 0.15 + 1,
-          })
+      ctx = gsap.context(() => {
+        const master = gsap.timeline({ defaults: { ease: 'power4.out' } })
+
+        gsap.to(glowRef.current, {
+          scale: 1.15,
+          opacity: 0.6,
+          duration: 3,
+          repeat: -1,
+          yoyo: true,
+          ease: 'sine.inOut',
         })
+
+        const particles = particlesRef.current?.querySelectorAll('.fh-particle')
+        if (particles) {
+          particles.forEach((p, i) => {
+            gsap.set(p, { opacity: 0 })
+            gsap.to(p, {
+              opacity: parseFloat(p.dataset.opacity) || 0.4,
+              y: `random(-40, 40)`,
+              x: `random(-30, 30)`,
+              duration: `random(4, 8)`,
+              repeat: -1,
+              yoyo: true,
+              ease: 'sine.inOut',
+              delay: i * 0.15 + 1,
+            })
+          })
+        }
+
+        master
+          .from(imageRef.current, {
+            scale: 0,
+            opacity: 0,
+            rotation: -10,
+            duration: 1.2,
+            ease: 'back.out(1.4)',
+            delay: 0.2,
+          })
+          .from(
+            badgeRef.current,
+            {
+              y: -30,
+              opacity: 0,
+              duration: 0.6,
+            },
+            '-=0.5',
+          )
+          .from(
+            '.fh-title-line',
+            {
+              y: 80,
+              opacity: 0,
+              duration: 0.8,
+              stagger: 0.12,
+            },
+            '-=0.3',
+          )
+          .from(
+            '.fh-subtitle',
+            {
+              y: 40,
+              opacity: 0,
+              duration: 0.7,
+            },
+            '-=0.3',
+          )
+          .from(
+            '.fh-tagline',
+            {
+              y: 30,
+              opacity: 0,
+              duration: 0.6,
+            },
+            '-=0.2',
+          )
+          .from(
+            '.fh-cta-group > *',
+            {
+              y: 25,
+              opacity: 0,
+              duration: 0.5,
+              stagger: 0.1,
+            },
+            '-=0.2',
+          )
+          .from(
+            statsRef.current,
+            {
+              y: 60,
+              opacity: 0,
+              duration: 0.8,
+            },
+            '-=0.2',
+          )
+          .from(
+            '.fh-stat-item',
+            {
+              y: 20,
+              opacity: 0,
+              duration: 0.4,
+              stagger: 0.1,
+            },
+            '-=0.4',
+          )
+
+        gsap.to(imageRef.current, {
+          y: -12,
+          duration: 3.5,
+          repeat: -1,
+          yoyo: true,
+          ease: 'sine.inOut',
+          delay: 1.5,
+        })
+      }, sectionRef)
+    }
+
+    const idleId =
+      'requestIdleCallback' in window
+        ? window.requestIdleCallback(runAnimations, { timeout: 1400 })
+        : window.setTimeout(runAnimations, 200)
+
+    return () => {
+      if ('cancelIdleCallback' in window) {
+        window.cancelIdleCallback(idleId)
+      } else {
+        window.clearTimeout(idleId)
       }
-
-      /* Master entrance timeline */
-
-      /* 1. Image frame scales in from 0 */
-      master.from(imageRef.current, {
-        scale: 0,
-        opacity: 0,
-        rotation: -10,
-        duration: 1.2,
-        ease: 'back.out(1.4)',
-        delay: 0.2,
-      })
-
-        /* 2. Badge slides down */
-        .from(badgeRef.current, {
-          y: -30,
-          opacity: 0,
-          duration: 0.6,
-        }, '-=0.5')
-
-        /* 3. Content text staggers in */
-        .from('.fh-title-line', {
-          y: 80,
-          opacity: 0,
-          duration: 0.8,
-          stagger: 0.12,
-        }, '-=0.3')
-
-        .from('.fh-subtitle', {
-          y: 40,
-          opacity: 0,
-          duration: 0.7,
-        }, '-=0.3')
-
-        .from('.fh-tagline', {
-          y: 30,
-          opacity: 0,
-          duration: 0.6,
-        }, '-=0.2')
-
-        /* 4. CTA buttons appear */
-        .from('.fh-cta-group > *', {
-          y: 25,
-          opacity: 0,
-          duration: 0.5,
-          stagger: 0.1,
-        }, '-=0.2')
-
-        /* 5. Stats counter bar slides up */
-        .from(statsRef.current, {
-          y: 60,
-          opacity: 0,
-          duration: 0.8,
-        }, '-=0.2')
-
-        /* 6. Individual stat items stagger */
-        .from('.fh-stat-item', {
-          y: 20,
-          opacity: 0,
-          duration: 0.4,
-          stagger: 0.1,
-        }, '-=0.4')
-
-      /* Continuous float for image frame */
-      gsap.to(imageRef.current, {
-        y: -12,
-        duration: 3.5,
-        repeat: -1,
-        yoyo: true,
-        ease: 'sine.inOut',
-        delay: 1.5,
-      })
-
-    }, sectionRef)
-
-    return () => ctx.revert()
+      ctx?.revert()
+    }
   }, [])
 
-  /* Particle data */
-  const particleData = Array.from({ length: 30 }, (_, i) => ({
-    id: i,
-    left: `${Math.random() * 100}%`,
-    top: `${Math.random() * 100}%`,
-    size: Math.random() * 5 + 2,
-    color: i % 4 === 0 ? '#EC4899' : i % 3 === 0 ? '#818CF8' : '#6366F1',
-    opacity: Math.random() * 0.4 + 0.15,
-  }))
+  const particleData = useMemo(
+    () =>
+      Array.from({ length: 20 }, (_, i) => ({
+        id: i,
+        left: `${Math.random() * 100}%`,
+        top: `${Math.random() * 100}%`,
+        size: Math.random() * 5 + 2,
+        color: i % 4 === 0 ? '#EC4899' : i % 3 === 0 ? '#818CF8' : '#6366F1',
+        opacity: Math.random() * 0.4 + 0.15,
+      })),
+    [],
+  )
 
   return (
     <section className="founder-hero" ref={sectionRef} id="founder-hero">
-      {/* Animated particles background */}
       <div className="fh-particles" ref={particlesRef}>
         {particleData.map((p) => (
           <span
@@ -150,13 +181,11 @@ export default function FounderHero() {
         ))}
       </div>
 
-      {/* Radial gradient overlays */}
       <div className="fh-gradient-orb fh-orb-indigo"></div>
       <div className="fh-gradient-orb fh-orb-rose"></div>
 
       <div className="fh-container container">
-        {/* LEFT: Content */}
-        <div className="fh-content" ref={contentRef}>
+        <div className="fh-content">
           <div className="fh-badge" ref={badgeRef}>
             <span className="fh-badge-dot"></span>
             Weekend Training & Placement Program 2026
@@ -188,24 +217,26 @@ export default function FounderHero() {
           </div>
         </div>
 
-        {/* RIGHT: Founder Image */}
         <div className="fh-image-col">
-          {/* Glow ring behind image */}
           <div className="fh-glow-ring" ref={glowRef}></div>
 
           <div className="fh-image-frame" ref={imageRef}>
-            {/* === SWAP THIS SRC WITH THE REAL FOUNDER IMAGE === */}
-            <img
-              src="/assets/founder.jpg"
-              alt="Subramani — Chief Data Scientist, Analytics Avenue"
-              className="fh-image"
-            />
-            {/* Decorative corner accents */}
+            <picture>
+              <source srcSet="/assets/founder.webp" type="image/webp" />
+              <img
+                src="/assets/founder.jpg"
+                alt="Subramani — Chief Data Scientist, Analytics Avenue"
+                className="fh-image"
+                width="768"
+                height="960"
+                fetchPriority="high"
+                decoding="async"
+              />
+            </picture>
             <div className="fh-frame-corner fh-corner-tl"></div>
             <div className="fh-frame-corner fh-corner-br"></div>
           </div>
 
-          {/* Floating credential badges around the image */}
           <div className="fh-floating-badge fh-fb-1">
             <span className="fh-fb-icon">🏆</span>
             <span className="fh-fb-text">Top AI Speaker</span>
@@ -221,7 +252,6 @@ export default function FounderHero() {
         </div>
       </div>
 
-      {/* Bottom stats bar */}
       <div className="fh-stats-bar" ref={statsRef}>
         <div className="container">
           <div className="fh-stats-grid">
@@ -248,7 +278,6 @@ export default function FounderHero() {
         </div>
       </div>
 
-      {/* Bottom fade */}
       <div className="fh-bottom-fade"></div>
     </section>
   )

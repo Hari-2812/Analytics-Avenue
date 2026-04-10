@@ -109,12 +109,16 @@ export default function TrustBentoGrid() {
             >
               {item.image && (
                 <div className="bento-image-wrapper">
-                  <img
-                    src={item.image}
-                    alt={item.title}
-                    className="bento-image"
-                    loading="lazy"
-                  />
+                  <picture>
+                    <source srcSet={item.image.replace(/\.jpg$/, '.webp')} type="image/webp" />
+                    <img
+                      src={item.image}
+                      alt={item.title}
+                      className="bento-image"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  </picture>
                 </div>
               )}
 

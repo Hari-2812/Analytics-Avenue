@@ -1,13 +1,13 @@
-import { lazy, Suspense } from 'react'
+import { lazy, Suspense, useEffect, useRef, useState } from 'react'
 import './App.css'
 import Navbar from './components/Navbar/Navbar'
 import FounderHero from './components/FounderHero/FounderHero'
-import HeroSection from './components/HeroSection/HeroSection'
 
+const HeroSection = lazy(() => import('./components/HeroSection/HeroSection'))
 const TargetRoleOrbital = lazy(() => import('./components/TargetRoleOrbital/TargetRoleOrbital'))
 const SyllabusGrid = lazy(() => import('./components/SyllabusGrid/SyllabusGrid'))
 const PlacementGrid = lazy(() => import('./components/PlacementGrid/PlacementGrid'))
-const SampleProjects = lazy(() => import('./components/SampleProjects/SampleProjects')) // ✅ added
+const SampleProjects = lazy(() => import('./components/SampleProjects/SampleProjects'))
 const EnrollmentTimeline = lazy(() => import('./components/EnrollmentTimeline/EnrollmentTimeline'))
 const StatsStrip = lazy(() => import('./components/StatsStrip/StatsStrip'))
 const TrustBentoGrid = lazy(() => import('./components/TrustBentoGrid/TrustBentoGrid'))
@@ -17,9 +17,38 @@ const Footer = lazy(() => import('./components/Footer/Footer'))
 
 function SectionLoader() {
   return (
-    <div className="section-loader">
+    <div className="section-loader" aria-hidden="true">
       <div className="section-loader-bar"></div>
     </div>
+  )
+}
+
+function DeferredSection({ children, minHeight = 320 }) {
+  const sentinelRef = useRef(null)
+  const [isVisible, setIsVisible] = useState(false)
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true)
+          observer.disconnect()
+        }
+      },
+      { rootMargin: '350px 0px' },
+    )
+
+    if (sentinelRef.current) {
+      observer.observe(sentinelRef.current)
+    }
+
+    return () => observer.disconnect()
+  }, [])
+
+  return (
+    <section ref={sentinelRef} className="deferred-section" style={{ minHeight }}>
+      {isVisible ? <Suspense fallback={<SectionLoader />}>{children}</Suspense> : <SectionLoader />}
+    </section>
   )
 }
 
@@ -29,48 +58,50 @@ function App() {
       <Navbar />
       <main>
         <FounderHero />
-        <HeroSection />
 
-        <Suspense fallback={<SectionLoader />}>
+        <DeferredSection minHeight={600}>
+          <HeroSection />
+        </DeferredSection>
+
+        <DeferredSection>
           <TargetRoleOrbital />
-        </Suspense>
+        </DeferredSection>
 
-        <Suspense fallback={<SectionLoader />}>
+        <DeferredSection>
           <SyllabusGrid />
-        </Suspense>
+        </DeferredSection>
 
-        <Suspense fallback={<SectionLoader />}>
+        <DeferredSection>
           <PlacementGrid />
-        </Suspense>
+        </DeferredSection>
 
-        {/* ✅ Sample Project Section Added */}
-        <Suspense fallback={<SectionLoader />}>
+        <DeferredSection>
           <SampleProjects />
-        </Suspense>
+        </DeferredSection>
 
-        <Suspense fallback={<SectionLoader />}>
+        <DeferredSection>
           <EnrollmentTimeline />
-        </Suspense>
+        </DeferredSection>
 
-        <Suspense fallback={<SectionLoader />}>
+        <DeferredSection>
           <StatsStrip />
-        </Suspense>
+        </DeferredSection>
 
-        <Suspense fallback={<SectionLoader />}>
+        <DeferredSection>
           <TrustBentoGrid />
-        </Suspense>
+        </DeferredSection>
 
-        <Suspense fallback={<SectionLoader />}>
+        <DeferredSection minHeight={500}>
           <ExpertPanel />
-        </Suspense>
+        </DeferredSection>
 
-        <Suspense fallback={<SectionLoader />}>
+        <DeferredSection>
           <FAQSection />
-        </Suspense>
+        </DeferredSection>
 
-        <Suspense fallback={<SectionLoader />}>
+        <DeferredSection minHeight={300}>
           <Footer />
-        </Suspense>
+        </DeferredSection>
       </main>
     </div>
   )

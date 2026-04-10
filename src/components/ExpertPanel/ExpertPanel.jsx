@@ -43,7 +43,7 @@ const experts = [
     role: 'Agentic AI Engineer',
     bio: 'Builds Agentic AI automations for supply chain to reduce manual efforts and improve efficiency.',
     skills: ['Machine Learning', 'SQL', 'GenAI', 'Agentic AI'],
-    avatar: '/assets/experts/deepak.jpg',
+    avatar: '/assets/experts/deepakraj.jpg',
   },
   {
     name: 'Subramani',
@@ -170,12 +170,16 @@ export default function ExpertPanel() {
                   <div className="expert-card-header"></div>
 
                   <div className="expert-avatar-box">
-                    <img
-                      src={expert.avatar}
-                      alt={expert.name}
-                      className="expert-avatar-img"
-                      loading="lazy"
-                    />
+                    <picture>
+                      <source srcSet={expert.avatar.replace(/\.jpg$/, '.webp')} type="image/webp" />
+                      <img
+                        src={expert.avatar}
+                        alt={expert.name}
+                        className="expert-avatar-img"
+                        loading="lazy"
+                        decoding="async"
+                      />
+                    </picture>
                   </div>
 
                   <div className="expert-card-body">

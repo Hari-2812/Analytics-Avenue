@@ -2,6 +2,11 @@
   min-height: 100vh;
 }
 
+.deferred-section {
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 700px;
+}
+
 .section-loader {
   display: flex;
   align-items: center;
@@ -33,4 +38,10 @@
 @keyframes loaderSlide {
   0% { left: -50%; }
   100% { left: 100%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .section-loader-bar::after {
+    animation: none;
+  }
 }

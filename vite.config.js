@@ -3,4 +3,23 @@ import react from '@vitejs/plugin-react'
 
 export default defineConfig({
   plugins: [react()],
+  build: {
+    target: 'es2020',
+    cssCodeSplit: true,
+    modulePreload: {
+      polyfill: false,
+    },
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (id.includes('node_modules/swiper')) return 'vendor-swiper'
+          if (id.includes('node_modules/gsap')) return 'vendor-gsap'
+          if (id.includes('node_modules')) return 'vendor'
+        },
+      },
+    },
+  },
+  esbuild: {
+    drop: ['console', 'debugger'],
+  },
 })
