@@ -170,7 +170,10 @@ export default function FounderHero() {
           </h1>
 
           <p className="fh-subtitle">
-            From India's core Data Scientists — master SQL, Python, Power BI & Generative AI through hands-on, industry-oriented live weekend sessions.
+            Transform Your Career into Data Science
+            Train with India’s Core Data Scientists
+            📊 SQL | Python | Power BI | Gen AI
+            🚀 Live Weekends | Real Industry Projects
           </p>
 
           <p className="fh-tagline">

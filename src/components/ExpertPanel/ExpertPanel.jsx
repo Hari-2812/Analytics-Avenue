@@ -127,7 +127,7 @@ export default function ExpertPanel() {
           loopedSlides={experts.length}
           watchSlidesProgress={true}
 
-          speed={4000}
+          speed={1000}
 
           autoplay={{
             delay: 0,

@@ -1,13 +1,19 @@
 import { lazy, Suspense } from 'react'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import './App.css'
 import Navbar from './components/Navbar/Navbar'
+
+/* ---------- HOME SECTIONS ---------- */
 import FounderHero from './components/FounderHero/FounderHero'
 import HeroSection from './components/HeroSection/HeroSection'
+import ProofSection from "./components/ProofSection/ProofSection";
+
+import AIFlowFull from "./components/AIFlowFull/AIFlowFull";
 
 const TargetRoleOrbital = lazy(() => import('./components/TargetRoleOrbital/TargetRoleOrbital'))
 const SyllabusGrid = lazy(() => import('./components/SyllabusGrid/SyllabusGrid'))
 const PlacementGrid = lazy(() => import('./components/PlacementGrid/PlacementGrid'))
-const SampleProjects = lazy(() => import('./components/SampleProjects/SampleProjects')) // ✅ added
+const SampleProjects = lazy(() => import('./components/SampleProjects/SampleProjects'))
 const EnrollmentTimeline = lazy(() => import('./components/EnrollmentTimeline/EnrollmentTimeline'))
 const StatsStrip = lazy(() => import('./components/StatsStrip/StatsStrip'))
 const TrustBentoGrid = lazy(() => import('./components/TrustBentoGrid/TrustBentoGrid'))
@@ -15,6 +21,17 @@ const ExpertPanel = lazy(() => import('./components/ExpertPanel/ExpertPanel'))
 const FAQSection = lazy(() => import('./components/FAQSection/FAQSection'))
 const Footer = lazy(() => import('./components/Footer/Footer'))
 
+/* ---------- ROLE PAGES ---------- */
+const DataScientist = lazy(() => import('./pages/DataScientist'))
+const DataEngineer = lazy(() => import('./pages/DataEngineer'))
+const BIDeveloper = lazy(() => import('./pages/BIDeveloper'))
+const AIEngineer = lazy(() => import('./pages/AIEngineer'))
+const MLEngineer = lazy(() => import('./pages/MLEngineer'))
+const AgenticAI = lazy(() => import('./pages/AgenticAI'))
+const NLPEngineer = lazy(() => import('./pages/NLPEngineer'))
+const AnalyticsConsultant = lazy(() => import('./pages/AnalyticsConsultant'))
+
+/* ---------- LOADER ---------- */
 function SectionLoader() {
   return (
     <div className="section-loader">
@@ -23,56 +40,86 @@ function SectionLoader() {
   )
 }
 
+/* ---------- HOME PAGE ---------- */
+function Home() {
+  return (
+    <main>
+      <FounderHero />
+      <ProofSection />
+      <HeroSection />
+
+
+      <Suspense fallback={<SectionLoader />}>
+        <TargetRoleOrbital />
+      </Suspense>
+
+      <Suspense fallback={<SectionLoader />}>
+        <SyllabusGrid />
+      </Suspense>
+
+      <Suspense fallback={<SectionLoader />}>
+        <PlacementGrid />
+      </Suspense>
+
+      <Suspense fallback={<SectionLoader />}>
+        <SampleProjects />
+      </Suspense>
+
+      <Suspense fallback={<SectionLoader />}>
+        <EnrollmentTimeline />
+      </Suspense>
+
+      <Suspense fallback={<SectionLoader />}>
+        <StatsStrip />
+      </Suspense>
+      <AIFlowFull />
+      <Suspense fallback={<SectionLoader />}>
+        <ExpertPanel />
+      </Suspense>
+      <Suspense fallback={<SectionLoader />}>
+        <TrustBentoGrid />
+      </Suspense>
+
+
+
+
+      <Suspense fallback={<SectionLoader />}>
+        <FAQSection />
+      </Suspense>
+
+      <Suspense fallback={<SectionLoader />}>
+        <Footer />
+      </Suspense>
+    </main>
+  )
+}
+
+/* ---------- APP ROOT ---------- */
 function App() {
   return (
-    <div className="app">
-      <Navbar />
-      <main>
-        <FounderHero />
-        <HeroSection />
+    <BrowserRouter>
+      <div className="app">
+        <Navbar />
 
         <Suspense fallback={<SectionLoader />}>
-          <TargetRoleOrbital />
+          <Routes>
+            {/* HOME */}
+            <Route path="/" element={<Home />} />
+
+            {/* ROLE PAGES */}
+            <Route path="/data-scientist" element={<DataScientist />} />
+            <Route path="/data-engineer" element={<DataEngineer />} />
+            <Route path="/bi-developer" element={<BIDeveloper />} />
+            <Route path="/ai-engineer" element={<AIEngineer />} />
+            <Route path="/ml-engineer" element={<MLEngineer />} />
+            <Route path="/agentic-ai" element={<AgenticAI />} />
+            <Route path="/nlp-engineer" element={<NLPEngineer />} />
+            <Route path="/analytics-consultant" element={<AnalyticsConsultant />} />
+          </Routes>
         </Suspense>
 
-        <Suspense fallback={<SectionLoader />}>
-          <SyllabusGrid />
-        </Suspense>
-
-        <Suspense fallback={<SectionLoader />}>
-          <PlacementGrid />
-        </Suspense>
-
-        {/* ✅ Sample Project Section Added */}
-        <Suspense fallback={<SectionLoader />}>
-          <SampleProjects />
-        </Suspense>
-
-        <Suspense fallback={<SectionLoader />}>
-          <EnrollmentTimeline />
-        </Suspense>
-
-        <Suspense fallback={<SectionLoader />}>
-          <StatsStrip />
-        </Suspense>
-
-        <Suspense fallback={<SectionLoader />}>
-          <TrustBentoGrid />
-        </Suspense>
-
-        <Suspense fallback={<SectionLoader />}>
-          <ExpertPanel />
-        </Suspense>
-
-        <Suspense fallback={<SectionLoader />}>
-          <FAQSection />
-        </Suspense>
-
-        <Suspense fallback={<SectionLoader />}>
-          <Footer />
-        </Suspense>
-      </main>
-    </div>
+      </div>
+    </BrowserRouter>
   )
 }
 

@@ -140,7 +140,7 @@ export default function PlacementGrid() {
                         ref={(el) => (numbersRef.current[idx] = el)} 
                         className="pg-odometer"
                       >
-                        0
+                        
                       </span>
                       {mode.metricSuffix}
                     </div>

@@ -10,8 +10,6 @@ const projects = [
     id: 'ecom-analytics',
     title: 'E-Commerce Sales Analytics',
     tech: ['SQL', 'Power BI', 'Python'],
-    category: 'Business Intelligence',
-    categoryColor: '#6366F1',
     desc: 'End-to-end sales analysis pipeline with Power BI dashboard — revenue trends, churn risk, and product performance.',
     image: '/assets/projects/project-sql.jpg',
     fallbackIcon: '📊',
@@ -21,8 +19,6 @@ const projects = [
     id: 'churn-prediction',
     title: 'Customer Churn Prediction',
     tech: ['Python', 'Scikit-learn', 'XGBoost'],
-    category: 'Machine Learning',
-    categoryColor: '#E879A0',
     desc: 'ML classification model predicting churn with 92% accuracy. Feature engineering + SHAP explainability included.',
     image: '/assets/projects/project-python.jpg',
     fallbackIcon: '🤖',
@@ -32,8 +28,6 @@ const projects = [
     id: 'powerbi-exec',
     title: 'Executive BI Command Centre',
     tech: ['Power BI', 'DAX', 'SQL Server'],
-    category: 'Business Intelligence',
-    categoryColor: '#6366F1',
     desc: 'Real-time C-suite dashboard with drill-through reports, KPI alerts, and predictive forecasting.',
     image: '/assets/projects/project-powerbi.jpg',
     fallbackIcon: '📈',
@@ -43,8 +37,6 @@ const projects = [
     id: 'genai-chatbot',
     title: 'GenAI Analytics Copilot',
     tech: ['LLMs', 'LangChain', 'Python', 'RAG'],
-    category: 'Generative AI',
-    categoryColor: '#22D3EE',
     desc: 'AI chatbot that answers business analytics questions by querying your data warehouse using natural language.',
     image: '/assets/projects/project-genai.jpg',
     fallbackIcon: '💬',
@@ -54,8 +46,6 @@ const projects = [
     id: 'data-pipeline',
     title: 'Scalable ETL Data Pipeline',
     tech: ['Python', 'DBT', 'Snowflake', 'Airflow'],
-    category: 'Data Engineering',
-    categoryColor: '#10B981',
     desc: 'Production-grade ELT pipeline ingesting multi-source data into Snowflake. Orchestrated with Airflow.',
     image: '/assets/projects/project-ml.jpg',
     fallbackIcon: '⚙️',
@@ -65,8 +55,6 @@ const projects = [
     id: 'agentic-ai',
     title: 'Agentic AI Supply Chain Bot',
     tech: ['Agents', 'Python', 'LangGraph', 'GenAI'],
-    category: 'Agentic AI',
-    categoryColor: '#F59E0B',
     desc: 'Autonomous AI agent that monitors supply chain anomalies, triggers alerts, and drafts executive reports.',
     image: '/assets/projects/project-agents.jpg',
     fallbackIcon: '🚀',
@@ -79,6 +67,7 @@ function ProjectCard({ project }) {
 
   return (
     <div className="project-card" id={`project-${project.id}`}>
+      
       <div className="project-image-wrap">
         {!imgError ? (
           <img
@@ -96,18 +85,13 @@ function ProjectCard({ project }) {
           </div>
         )}
 
+        {/* Overlay (kept for premium look) */}
         <div className="project-image-overlay" />
-
-        <span
-          className="project-category-badge"
-          style={{ '--cat-color': project.categoryColor }}
-        >
-          {project.category}
-        </span>
       </div>
 
       <div className="project-body">
         <h3 className="project-title">{project.title}</h3>
+
         <p className="project-desc">{project.desc}</p>
 
         <div className="project-metrics">
@@ -135,6 +119,7 @@ export default function SampleProjects() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
+
       gsap.from('.projects-header', {
         scrollTrigger: {
           trigger: sectionRef.current,
@@ -157,6 +142,7 @@ export default function SampleProjects() {
         stagger: 0.12,
         ease: 'power3.out',
       })
+
     }, sectionRef)
 
     return () => ctx.revert()
@@ -165,6 +151,7 @@ export default function SampleProjects() {
   return (
     <section className="projects-section" ref={sectionRef} id="projects">
       <div className="container">
+
         <div className="projects-header">
           <span className="section-label">Sample Projects</span>
 
@@ -207,6 +194,7 @@ export default function SampleProjects() {
             </svg>
           </a>
         </div>
+
       </div>
     </section>
   )

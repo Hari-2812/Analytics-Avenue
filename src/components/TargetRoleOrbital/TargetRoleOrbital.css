@@ -1,170 +1,131 @@
-/* ========== TARGET ROLE ORBITAL ========== */
-.orbital-section {
-  padding: var(--section-padding);
-  background: var(--bg-deep);
-  text-align: center;
-  overflow: hidden;
-}
-
-.orbital-heading {
-  margin-bottom: 60px;
-}
-
-/* Stage */
+/* ================= STAGE ================= */
 .orbital-stage {
   position: relative;
-  width: 500px;
-  height: 500px;
-  margin: 0 auto;
+  width: 520px;
+  height: 520px;
+  margin: 60px auto;
 }
 
-/* Center Hub */
+/* ================= CENTER HUB ================= */
 .orbital-hub {
   position: absolute;
   top: 50%;
   left: 50%;
+  width: 130px;
+  height: 130px;
   transform: translate(-50%, -50%);
-  width: 80px;
-  height: 80px;
-  background: var(--gradient-cta);
-  border-radius: var(--radius-full);
+  background: radial-gradient(circle at center, #1e293b, #020617);
+  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 5;
-  box-shadow: 0 0 40px rgba(99, 102, 241, 0.4);
-}
-
-.hub-text {
-  font-family: var(--font-heading);
-  font-weight: 800;
-  font-size: 1rem;
   color: #fff;
-  letter-spacing: 2px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  z-index: 10;
+
+  box-shadow: 0 0 40px rgba(99,102,241,0.4);
 }
 
-/* Orbit path ring */
-.orbital-path {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 440px;
-  height: 440px;
-  border: 1px dashed rgba(99, 102, 241, 0.2);
-  border-radius: var(--radius-full);
-  pointer-events: none;
-}
-
-/* Orbit ring container */
+/* ================= ORBIT ================= */
 .orbital-ring {
   position: absolute;
   top: 50%;
   left: 50%;
   width: 0;
   height: 0;
-  will-change: transform;
 }
 
-/* Each card */
+/* ================= WRAPPER ================= */
+.orbital-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+/* ================= CONNECTOR LINE (NEW PREMIUM STYLE) ================= */
+.orbital-line {
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  width: 220px;
+  height: 2px;
+
+  transform-origin: left center;
+
+  /* smooth dotted gradient */
+  background: repeating-radial-gradient(
+    circle,
+    rgba(255,255,255,0.8) 0px,
+    rgba(255,255,255,0.8) 2px,
+    transparent 3px,
+    transparent 10px
+  );
+
+  /* glow */
+  filter: drop-shadow(0 0 6px rgba(255,255,255,0.4));
+
+  opacity: 0.7;
+}
+
+/* ================= CARD ================= */
 .orbital-card {
   position: absolute;
+  top: 0;
+  left: 0;
+
+  transform: translate(-50%, -50%);
+
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+
+  background: linear-gradient(145deg, #ffffff, #f1f5f9);
+
   display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: 6px;
-  will-change: transform;
+  justify-content: center;
+  flex-direction: column;
+
+  box-shadow: 
+    0 10px 30px rgba(0,0,0,0.15),
+    inset 0 2px 4px rgba(255,255,255,0.5);
+
   cursor: pointer;
-  transition: scale var(--transition-fast);
+  transition: all 0.3s ease;
 }
 
 .orbital-card:hover {
-  scale: 1.15;
+  transform: translate(-50%, -50%) scale(1.1);
+  box-shadow: 0 20px 50px rgba(99,102,241,0.4);
 }
 
+/* ================= ICON ================= */
 .orbital-card-icon {
-  width: 56px;
-  height: 56px;
-  background: var(--accent-indigo);
-  border-radius: var(--radius-full);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.4rem;
-  box-shadow: 0 4px 20px rgba(99, 102, 241, 0.3);
+  font-size: 24px;
+  margin-bottom: 6px;
 }
 
-.orbital-card-title {
-  font-family: var(--font-body);
-  font-size: 0.72rem;
-  font-weight: 600;
-  color: var(--text-heading);
-  white-space: nowrap;
-  max-width: 100px;
+/* ================= TEXT ================= */
+.orbital-card span {
+  font-size: 12px;
   text-align: center;
-}
-
-/* Mobile fallback */
-.orbital-mobile-grid {
-  display: none;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 16px;
-  margin-top: 20px;
-}
-
-.orbital-mobile-card {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 16px;
-  background: var(--bg-surface);
-  border-radius: var(--radius-md);
-  border: 1px solid var(--border-subtle);
-  transition: border-color var(--transition-fast);
-}
-
-.orbital-mobile-card:hover {
-  border-color: var(--accent-indigo);
-}
-
-.orbital-mobile-icon {
-  width: 44px;
-  height: 44px;
-  background: var(--accent-indigo);
-  border-radius: var(--radius-full);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.2rem;
-  flex-shrink: 0;
-}
-
-.orbital-mobile-title {
-  font-family: var(--font-body);
-  font-size: 0.85rem;
   font-weight: 600;
-  color: var(--text-heading);
+  color: #1e293b;
 }
 
-/* ===== RESPONSIVE ===== */
-@media (max-width: 768px) {
-  .orbital-stage {
-    display: none;
-  }
+/* ================= PATH ================= */
+.orbital-path {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 440px;
+  height: 440px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
 
-  .orbital-mobile-grid {
-    display: grid;
-  }
-}
+  border: 1.5px dashed rgba(255,255,255,0.2);
 
-@media (min-width: 769px) and (max-width: 1024px) {
-  .orbital-stage {
-    width: 420px;
-    height: 420px;
-  }
-
-  .orbital-path {
-    width: 370px;
-    height: 370px;
-  }
+  box-shadow: 0 0 40px rgba(99,102,241,0.2);
 }

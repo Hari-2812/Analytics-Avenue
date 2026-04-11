@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react'
+import { useNavigate } from 'react-router-dom'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import './TargetRoleOrbital.css'
@@ -6,113 +7,103 @@ import './TargetRoleOrbital.css'
 gsap.registerPlugin(ScrollTrigger)
 
 const roles = [
-  { title: 'Data Scientist', icon: '🧠' },
-  { title: 'Data Engineer', icon: '⚙️' },
-  { title: 'BI Developer', icon: '📊' },
-  { title: 'AI Engineer', icon: '🤖' },
-  { title: 'ML Engineer', icon: '🔬' },
-  { title: 'Agentic AI Engineer', icon: '🚀' },
-  { title: 'NLP Engineer', icon: '💬' },
-  { title: 'Analytics Consultant', icon: '📈' },
+  { title: 'Data Scientist', icon: '🧠', path: '/data-scientist' },
+  { title: 'Data Engineer', icon: '⚙️', path: '/data-engineer' },
+  { title: 'BI Developer', icon: '📊', path: '/bi-developer' },
+  { title: 'AI Engineer', icon: '🤖', path: '/ai-engineer' },
+  { title: 'ML Engineer', icon: '🔬', path: '/ml-engineer' },
+  { title: 'Agentic AI Engineer', icon: '🚀', path: '/agentic-ai' },
+  { title: 'NLP Engineer', icon: '💬', path: '/nlp-engineer' },
+  { title: 'Analytics Consultant', icon: '📈', path: '/analytics-consultant' },
 ]
 
 export default function TargetRoleOrbital() {
   const sectionRef = useRef(null)
   const orbitRef = useRef(null)
-  const cardsRef = useRef([])
+  const navigate = useNavigate()
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      /* Scroll-triggered entrance */
-      gsap.from('.orbital-heading', {
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top 80%',
-        },
-        y: 50,
-        opacity: 0,
-        duration: 0.8,
-      })
 
-      /* Continuous orbit rotation */
+      // ✅ Only animate orbit (performance optimized)
       gsap.to(orbitRef.current, {
         rotation: 360,
-        duration: 40,
+        duration: 60,
         repeat: -1,
-        ease: 'none',
+        ease: 'linear',
       })
 
-      /* Counter-rotate cards so text stays upright */
-      cardsRef.current.forEach((card) => {
-        if (card) {
-          gsap.to(card, {
-            rotation: -360,
-            duration: 40,
-            repeat: -1,
-            ease: 'none',
-          })
-        }
-      })
     }, sectionRef)
 
     return () => ctx.revert()
   }, [])
 
   return (
-    <section className="orbital-section" ref={sectionRef} id="roles">
+    <section className="orbital-section" ref={sectionRef}>
       <div className="container">
+
+        {/* HEADING */}
         <div className="orbital-heading">
-          <span className="section-label">Career Pathways</span>
           <h2 className="section-title">
-            Mastering AI <span className="accent-rose">Multiplies</span> Your Opportunities
+            Master <span className="accent-rose">AI Skills</span> That Multiply Your Opportunities
           </h2>
+
           <p className="section-subtitle">
-            AI is transforming every industry. Every role below is in high demand — and our program prepares you for all of them.
+            AI is reshaping every industry — automate work, unlock insights, and build predictable growth.
           </p>
         </div>
 
+        {/* ORBIT STAGE */}
         <div className="orbital-stage">
-          {/* Center hub */}
-          <div className="orbital-hub">
-            <span className="hub-text">YOU</span>
-          </div>
 
-          {/* Orbit ring */}
+          {/* CENTER */}
+          <div className="orbital-hub">COURSE</div>
+
+          {/* ORBIT */}
           <div className="orbital-ring" ref={orbitRef}>
             {roles.map((role, i) => {
               const angle = (360 / roles.length) * i
               const radius = 220
+
               const x = Math.cos((angle * Math.PI) / 180) * radius
               const y = Math.sin((angle * Math.PI) / 180) * radius
 
               return (
                 <div
                   key={role.title}
-                  className="orbital-card"
-                  ref={(el) => (cardsRef.current[i] = el)}
+                  className="orbital-wrapper"
                   style={{
-                    transform: `translate(${x}px, ${y}px)`,
+                    transform: `translate(${x}px, ${y}px)`
                   }}
                 >
-                  <div className="orbital-card-icon">{role.icon}</div>
-                  <span className="orbital-card-title">{role.title}</span>
+                  {/* CONNECTOR LINE (INWARD) */}
+                  <div
+                    className="orbital-line"
+                    style={{
+                      transform: `rotate(${angle + 180}deg)`
+                    }}
+                  />
+
+                  {/* CARD */}
+                  <div
+                    className="orbital-card"
+                    onClick={() => {
+                      gsap.killTweensOf("*") // 🔥 instant click response
+                      navigate(role.path)
+                    }}
+                  >
+                    <div className="orbital-card-icon">{role.icon}</div>
+                    <span>{role.title}</span>
+                  </div>
+
                 </div>
               )
             })}
           </div>
 
-          {/* Orbit path (visual circle) */}
+          {/* OUTER PATH */}
           <div className="orbital-path"></div>
-        </div>
 
-        {/* Mobile fallback: horizontal scroll */}
-        <div className="orbital-mobile-grid">
-          {roles.map((role) => (
-            <div key={role.title} className="orbital-mobile-card">
-              <div className="orbital-mobile-icon">{role.icon}</div>
-              <span className="orbital-mobile-title">{role.title}</span>
-            </div>
-          ))}
         </div>
       </div>
     </section>

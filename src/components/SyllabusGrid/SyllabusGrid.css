@@ -157,3 +157,62 @@
     font-size: 1.1rem;
   }
 }
+/* ▶ PLAY BUTTON */
+.syllabus-play-btn {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+
+  background: rgba(99,102,241,0.15);
+  border: 1px solid rgba(99,102,241,0.4);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 14px;
+  color: #6366F1;
+
+  cursor: pointer;
+  transition: 0.25s;
+  z-index: 5;
+}
+
+.syllabus-play-btn:hover {
+  background: #6366F1;
+  color: #fff;
+  transform: scale(1.1);
+}
+.syllabus-play-btn {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+
+  background: rgba(99,102,241,0.15);
+  border: 1px solid rgba(99,102,241,0.4);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 14px;
+  color: #6366F1;
+
+  cursor: pointer;
+  transition: 0.25s;
+  z-index: 5;
+}
+
+.syllabus-play-btn:hover {
+  background: #6366F1;
+  color: #fff;
+  transform: scale(1.1);
+}

@@ -1,0 +1,161 @@
+/* ================= ROOT ================= */
+:root {
+  --bg-main: #0b1120;
+  --bg-card: rgba(255, 255, 255, 0.05);
+  --border-glass: rgba(255, 255, 255, 0.1);
+
+  --primary: #6366f1;
+  --accent: #ff4d6d;
+  --text-main: #e2e8f0;
+  --text-soft: #94a3b8;
+
+  --radius: 18px;
+}
+
+/* ================= PAGE ================= */
+.role-page {
+  padding: 60px 20px;
+  max-width: 1200px;
+  margin: auto;
+  font-family: 'Inter', sans-serif;
+  color: var(--text-main);
+}
+
+/* ================= HERO ================= */
+.role-hero {
+  text-align: center;
+  padding: 100px 30px;
+  border-radius: var(--radius);
+
+  background: radial-gradient(circle at top, #1e293b, #020617);
+  border: 1px solid var(--border-glass);
+  backdrop-filter: blur(20px);
+
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+.role-hero h1 {
+  font-size: 48px;
+  font-weight: 800;
+  background: linear-gradient(to right, #6366f1, #ff4d6d);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.role-hero p {
+  margin-top: 15px;
+  color: var(--text-soft);
+  font-size: 16px;
+}
+
+/* ================= SECTION ================= */
+.role-section {
+  margin-top: 70px;
+}
+
+.role-section h2 {
+  font-size: 28px;
+  margin-bottom: 20px;
+  font-weight: 700;
+}
+
+.role-subtitle {
+  color: var(--accent);
+  margin-bottom: 12px;
+  font-weight: 600;
+}
+
+/* ================= GRID ================= */
+.role-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+/* ================= CARD ================= */
+.role-card {
+  padding: 20px;
+  background: var(--bg-card);
+  border-radius: var(--radius);
+  text-align: center;
+  font-weight: 500;
+
+  border: 1px solid var(--border-glass);
+  backdrop-filter: blur(12px);
+
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.role-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, transparent, rgba(255,255,255,0.1), transparent);
+  opacity: 0;
+  transition: 0.4s;
+}
+
+.role-card:hover::before {
+  opacity: 1;
+}
+
+.role-card:hover {
+  transform: translateY(-8px) scale(1.03);
+  border-color: var(--primary);
+}
+
+/* ================= COMPANY ================= */
+.company-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 18px;
+}
+
+.company-card {
+  padding: 16px;
+  background: linear-gradient(135deg, #020617, #1e293b);
+  border-radius: 12px;
+  text-align: center;
+  border: 1px solid var(--border-glass);
+
+  transition: 0.3s;
+}
+
+.company-card:hover {
+  transform: translateY(-6px);
+  background: linear-gradient(135deg, #1e293b, #334155);
+}
+
+/* ================= HIGHLIGHT ================= */
+.highlight {
+  background: linear-gradient(135deg, rgba(99,102,241,0.15), rgba(255,77,109,0.1));
+  padding: 25px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border-glass);
+}
+
+/* ================= CTA ================= */
+.role-cta {
+  text-align: center;
+  margin-top: 80px;
+}
+
+.cta-btn {
+  padding: 14px 30px;
+  background: linear-gradient(to right, #6366f1, #ff4d6d);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 16px;
+
+  transition: all 0.3s ease;
+}
+
+.cta-btn:hover {
+  transform: scale(1.08);
+  box-shadow: 0 10px 30px rgba(255, 77, 109, 0.4);
+}

@@ -1,0 +1,237 @@
+/* ================= SECTION ================= */
+.ai-flow-section {
+  padding: 100px 40px;
+  background: #0f172a; /* 🔥 match your hero */
+  color: #fff;
+  overflow: hidden;
+}
+
+/* ================= LAYOUT ================= */
+.ai-flow-container {
+  display: flex;
+  align-items: flex-start;
+  gap: 80px;
+}
+
+/* ================= LEFT ================= */
+.ai-left h1 {
+  font-size: 90px;
+  font-weight: 800;
+  line-height: 1;
+  background: linear-gradient(90deg, #6366F1, #818CF8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ================= SKILLS ================= */
+.ai-skills {
+  position: relative;
+  padding-left: 30px;
+}
+
+/* glowing vertical line */
+.ai-skills::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 2px;
+  background: linear-gradient(to bottom, #6366F1, transparent);
+  box-shadow: 0 0 10px #6366F1;
+}
+
+.skill-group li {
+  margin-bottom: 14px;
+  position: relative;
+  padding-left: 18px;
+  color: #cbd5f5;
+}
+
+/* glowing dots */
+.skill-group li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 8px;
+  width: 6px;
+  height: 6px;
+  background: #6366F1;
+  border-radius: 50%;
+  box-shadow: 0 0 8px #6366F1;
+}
+
+/* divider */
+.divider {
+  height: 1px;
+  background: linear-gradient(to right, #6366F1, transparent);
+  margin: 20px 0;
+}
+
+/* ================= PHASE ================= */
+.ai-phases {
+  display: flex;
+  flex-direction: column;
+  gap: 80px;
+}
+
+.phase {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* animated bracket */
+.bracket {
+  width: 24px;
+  height: 70px;
+  border-right: 2px solid #6366F1;
+  border-top: 2px solid #6366F1;
+  border-bottom: 2px solid #6366F1;
+  animation: pulseGlow 2s infinite;
+}
+
+.phase p {
+  font-weight: 600;
+  color: #e2e8f0;
+}
+
+/* ================= OUTPUT ================= */
+.ai-output {
+  display: flex;
+  flex-direction: column;
+  gap: 80px;
+}
+
+.output-group {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+}
+
+.output-group li {
+  margin-bottom: 10px;
+  padding-left: 14px;
+  position: relative;
+  color: #cbd5f5;
+}
+
+.output-group li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 7px;
+  width: 5px;
+  height: 5px;
+  background: #6366F1;
+  border-radius: 50%;
+  box-shadow: 0 0 8px #6366F1;
+}
+
+/* PLUS */
+.plus {
+  font-size: 26px;
+  color: #6366F1;
+  font-weight: bold;
+  animation: float 3s ease-in-out infinite;
+}
+
+/* highlight text */
+.highlight {
+  font-weight: 600;
+  color: #818CF8;
+}
+
+/* ================= ANIMATIONS ================= */
+
+/* floating effect */
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+  100% { transform: translateY(0px); }
+}
+
+/* glow pulse */
+@keyframes pulseGlow {
+  0% { box-shadow: 0 0 5px #6366F1; }
+  50% { box-shadow: 0 0 20px #6366F1; }
+  100% { box-shadow: 0 0 5px #6366F1; }
+}
+
+/* ================= HOVER MAGIC ================= */
+.output-group:hover {
+  transform: translateX(8px);
+  transition: 0.3s ease;
+}
+
+.skill-group li:hover {
+  color: #fff;
+  transform: translateX(4px);
+  transition: 0.2s ease;
+}
+/* ================= HEADER ================= */
+.ai-flow-header {
+  text-align: center;
+  margin-bottom: 80px;
+}
+
+.ai-title {
+  font-size: 42px;
+  font-weight: 700;
+  color: #fff;
+}
+
+.ai-title span {
+  background: linear-gradient(90deg, #6366F1, #818CF8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.ai-subtitle {
+  margin-top: 12px;
+  color: #94a3b8;
+  max-width: 700px;
+  margin-inline: auto;
+  line-height: 1.6;
+}
+
+/* ================= SAFE ANIMATION ================= */
+
+/* Fade + slight move (NO breaking) */
+.ai-flow-container {
+  animation: fadeUp 1s ease forwards;
+  opacity: 0;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px); /* safe */
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* REMOVE aggressive animations */
+.plus {
+  animation: none; /* 🔥 FIX jitter */
+}
+
+/* smooth hover (no layout break) */
+.output-group:hover {
+  transform: translateX(6px);
+  transition: transform 0.3s ease;
+}
+
+/* bracket glow only (safe) */
+.bracket {
+  animation: softGlow 2s infinite;
+}
+
+@keyframes softGlow {
+  0% { opacity: 0.6; }
+  50% { opacity: 1; }
+  100% { opacity: 0.6; }
+}
