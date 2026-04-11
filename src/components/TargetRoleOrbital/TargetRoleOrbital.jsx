@@ -1,110 +1,100 @@
 import { useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import './TargetRoleOrbital.css'
 
-gsap.registerPlugin(ScrollTrigger)
-
-const roles = [
-  { title: 'Data Scientist', icon: '🧠', path: '/data-scientist' },
-  { title: 'Data Engineer', icon: '⚙️', path: '/data-engineer' },
-  { title: 'BI Developer', icon: '📊', path: '/bi-developer' },
-  { title: 'AI Engineer', icon: '🤖', path: '/ai-engineer' },
-  { title: 'ML Engineer', icon: '🔬', path: '/ml-engineer' },
-  { title: 'Agentic AI Engineer', icon: '🚀', path: '/agentic-ai' },
-  { title: 'NLP Engineer', icon: '💬', path: '/nlp-engineer' },
-  { title: 'Analytics Consultant', icon: '📈', path: '/analytics-consultant' },
+const industries = [
+  { title: 'Manufacturing', icon: '🏭', path: '/manufacturing' },
+  { title: 'Telecom', icon: '📡', path: '/telecom' },
+  { title: 'EV & Battery', icon: '🔋', path: '/ev' },
+  { title: 'E-Commerce', icon: '🛒', path: '/ecommerce' },
+  { title: 'Logistics', icon: '🚚', path: '/logistics' },
+  { title: 'Healthcare', icon: '❤️', path: '/healthcare' },
+  { title: 'Automobile', icon: '🚗', path: '/automobile' },
+  { title: 'IT Services', icon: '💻', path: '/it' },
 ]
 
 export default function TargetRoleOrbital() {
-  const sectionRef = useRef(null)
-  const orbitRef = useRef(null)
+  const nodesRef = useRef([])
   const navigate = useNavigate()
 
   useEffect(() => {
-    const ctx = gsap.context(() => {
+    const positions = [
+      { x: -240, y: -160 },
+      { x: 240, y: -160 },
+      { x: 320, y: 20 },
+      { x: 200, y: 220 },
+      { x: -200, y: 220 },
+      { x: -320, y: 20 },
+      { x: -120, y: -40 },
+      { x: 120, y: -40 },
+    ]
 
-      // ✅ Only animate orbit (performance optimized)
-      gsap.to(orbitRef.current, {
-        rotation: 360,
-        duration: 60,
+    nodesRef.current.forEach((node, i) => {
+      // ENTRY ANIMATION (VISIBLE FROM CORNERS)
+      gsap.fromTo(
+        node,
+        {
+          x: i % 2 === 0 ? -500 : 500,
+          y: i < 4 ? -350 : 350,
+          opacity: 0,
+          scale: 0.5,
+        },
+        {
+          x: positions[i].x,
+          y: positions[i].y,
+          opacity: 1,
+          scale: 1,
+          duration: 1.4,
+          delay: i * 0.12,
+          ease: 'power3.out',
+        }
+      )
+
+      // FLOATING EFFECT
+      gsap.to(node, {
+        y: positions[i].y + 12,
         repeat: -1,
-        ease: 'linear',
+        yoyo: true,
+        duration: 2 + i * 0.2,
+        ease: 'sine.inOut',
+        delay: 1.5,
       })
-
-    }, sectionRef)
-
-    return () => ctx.revert()
+    })
   }, [])
 
+  const handleClick = (e, path) => {
+    const ripple = document.createElement('span')
+    ripple.className = 'ripple'
+    e.currentTarget.appendChild(ripple)
+
+    setTimeout(() => ripple.remove(), 600)
+    navigate(path)
+  }
+
   return (
-    <section className="orbital-section" ref={sectionRef}>
-      <div className="container">
+    <section className="flow-section">
+      <h2 className="title">
+        AI Converging Across <span>Industries</span>
+      </h2>
 
-        {/* HEADING */}
-        <div className="orbital-heading">
-          <h2 className="section-title">
-            Master <span className="accent-rose">AI Skills</span> That Multiply Your Opportunities
-          </h2>
+      <div className="flow-container">
 
-          <p className="section-subtitle">
-            AI is reshaping every industry — automate work, unlock insights, and build predictable growth.
-          </p>
-        </div>
+        {/* CENTER */}
+        <div className="core">AI CORE</div>
 
-        {/* ORBIT STAGE */}
-        <div className="orbital-stage">
-
-          {/* CENTER */}
-          <div className="orbital-hub">COURSE</div>
-
-          {/* ORBIT */}
-          <div className="orbital-ring" ref={orbitRef}>
-            {roles.map((role, i) => {
-              const angle = (360 / roles.length) * i
-              const radius = 220
-
-              const x = Math.cos((angle * Math.PI) / 180) * radius
-              const y = Math.sin((angle * Math.PI) / 180) * radius
-
-              return (
-                <div
-                  key={role.title}
-                  className="orbital-wrapper"
-                  style={{
-                    transform: `translate(${x}px, ${y}px)`
-                  }}
-                >
-                  {/* CONNECTOR LINE (INWARD) */}
-                  <div
-                    className="orbital-line"
-                    style={{
-                      transform: `rotate(${angle + 180}deg)`
-                    }}
-                  />
-
-                  {/* CARD */}
-                  <div
-                    className="orbital-card"
-                    onClick={() => {
-                      gsap.killTweensOf("*") // 🔥 instant click response
-                      navigate(role.path)
-                    }}
-                  >
-                    <div className="orbital-card-icon">{role.icon}</div>
-                    <span>{role.title}</span>
-                  </div>
-
-                </div>
-              )
-            })}
+        {/* NODES */}
+        {industries.map((item, i) => (
+          <div
+            key={item.title}
+            ref={(el) => (nodesRef.current[i] = el)}
+            className="node"
+            onClick={(e) => handleClick(e, item.path)}
+          >
+            <div className="icon">{item.icon}</div>
+            <span>{item.title}</span>
           </div>
-
-          {/* OUTER PATH */}
-          <div className="orbital-path"></div>
-
-        </div>
+        ))}
       </div>
     </section>
   )

@@ -6,10 +6,10 @@ import Navbar from './components/Navbar/Navbar'
 /* ---------- HOME SECTIONS ---------- */
 import FounderHero from './components/FounderHero/FounderHero'
 import HeroSection from './components/HeroSection/HeroSection'
-import ProofSection from "./components/ProofSection/ProofSection";
+import ProofSection from "./components/ProofSection/ProofSection"
+import AIFlowFull from "./components/AIFlowFull/AIFlowFull"
 
-import AIFlowFull from "./components/AIFlowFull/AIFlowFull";
-
+/* ---------- LAZY COMPONENTS ---------- */
 const TargetRoleOrbital = lazy(() => import('./components/TargetRoleOrbital/TargetRoleOrbital'))
 const SyllabusGrid = lazy(() => import('./components/SyllabusGrid/SyllabusGrid'))
 const PlacementGrid = lazy(() => import('./components/PlacementGrid/PlacementGrid'))
@@ -22,14 +22,24 @@ const FAQSection = lazy(() => import('./components/FAQSection/FAQSection'))
 const Footer = lazy(() => import('./components/Footer/Footer'))
 
 /* ---------- ROLE PAGES ---------- */
-const DataScientist = lazy(() => import('./pages/DataScientist'))
-const DataEngineer = lazy(() => import('./pages/DataEngineer'))
-const BIDeveloper = lazy(() => import('./pages/BIDeveloper'))
-const AIEngineer = lazy(() => import('./pages/AIEngineer'))
-const MLEngineer = lazy(() => import('./pages/MLEngineer'))
-const AgenticAI = lazy(() => import('./pages/AgenticAI'))
-const NLPEngineer = lazy(() => import('./pages/NLPEngineer'))
-const AnalyticsConsultant = lazy(() => import('./pages/AnalyticsConsultant'))
+// const DataScientist = lazy(() => import('./pages/DataScientist'))
+// const DataEngineer = lazy(() => import('./pages/DataEngineer'))
+// const BIDeveloper = lazy(() => import('./pages/BIDeveloper'))
+// const AIEngineer = lazy(() => import('./pages/AIEngineer'))
+// const MLEngineer = lazy(() => import('./pages/MLEngineer'))
+// const AgenticAI = lazy(() => import('./pages/AgenticAI'))
+// const NLPEngineer = lazy(() => import('./pages/NLPEngineer'))
+// const AnalyticsConsultant = lazy(() => import('./pages/AnalyticsConsultant'))
+
+/* ---------- INDUSTRY PAGES ---------- */
+const Manufacturing = lazy(() => import('./pages/Manufacturing'))
+const ITServices = lazy(() => import('./pages/ITServices'))
+const Automobile = lazy(() => import('./pages/Automobile'))
+const Healthcare = lazy(() => import('./pages/Healthcare'))
+const Telecom = lazy(() => import('./pages/Telecom'))
+const Ecommerce = lazy(() => import('./pages/Ecommerce'))
+const Logistics = lazy(() => import('./pages/Logistics'))
+const EV = lazy(() => import('./pages/EV'))
 
 /* ---------- LOADER ---------- */
 function SectionLoader() {
@@ -47,7 +57,6 @@ function Home() {
       <FounderHero />
       <ProofSection />
       <HeroSection />
-
 
       <Suspense fallback={<SectionLoader />}>
         <TargetRoleOrbital />
@@ -72,16 +81,16 @@ function Home() {
       <Suspense fallback={<SectionLoader />}>
         <StatsStrip />
       </Suspense>
+
       <AIFlowFull />
+
       <Suspense fallback={<SectionLoader />}>
         <ExpertPanel />
       </Suspense>
+
       <Suspense fallback={<SectionLoader />}>
         <TrustBentoGrid />
       </Suspense>
-
-
-
 
       <Suspense fallback={<SectionLoader />}>
         <FAQSection />
@@ -103,18 +112,30 @@ function App() {
 
         <Suspense fallback={<SectionLoader />}>
           <Routes>
+
             {/* HOME */}
             <Route path="/" element={<Home />} />
 
-            {/* ROLE PAGES */}
-            <Route path="/data-scientist" element={<DataScientist />} />
+            ROLE PAGES
+            {/* <Route path="/data-scientist" element={<DataScientist />} />
             <Route path="/data-engineer" element={<DataEngineer />} />
             <Route path="/bi-developer" element={<BIDeveloper />} />
             <Route path="/ai-engineer" element={<AIEngineer />} />
             <Route path="/ml-engineer" element={<MLEngineer />} />
             <Route path="/agentic-ai" element={<AgenticAI />} />
             <Route path="/nlp-engineer" element={<NLPEngineer />} />
-            <Route path="/analytics-consultant" element={<AnalyticsConsultant />} />
+            <Route path="/analytics-consultant" element={<AnalyticsConsultant />} /> */}
+
+            {/* INDUSTRY PAGES */}
+            <Route path="/manufacturing" element={<Manufacturing />} />
+            <Route path="/it" element={<ITServices />} />
+            <Route path="/automobile" element={<Automobile />} />
+            <Route path="/healthcare" element={<Healthcare />} />
+            <Route path="/telecom" element={<Telecom />} />
+            <Route path="/ecommerce" element={<Ecommerce />} />
+            <Route path="/logistics" element={<Logistics />} />
+            <Route path="/ev" element={<EV />} />
+
           </Routes>
         </Suspense>
 

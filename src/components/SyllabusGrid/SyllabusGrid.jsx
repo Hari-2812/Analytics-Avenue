@@ -8,16 +8,9 @@ gsap.registerPlugin(ScrollTrigger)
 const modules = [
   {
     id: 'sql',
-    number: '01',
     title: 'SQL & Data Engineering',
     subtitle: 'For Analytics Platforms',
-    video: "https://www.youtube.com/watch?v=HXV3zeQKqGY",
-    icon: (
-      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#6366F1">
-        <ellipse cx="12" cy="5" rx="9" ry="3"/>
-        <path d="M3 5v14c0 1.66 4.03 3 9 3s9-1.34 9-3V5"/>
-      </svg>
-    ),
+    video: "https://www.youtube.com/embed/HXV3zeQKqGY",
     details: [
       'Advanced SQL for analytics, reporting & optimization',
       'Designing analytical data models & warehouse structures',
@@ -27,16 +20,9 @@ const modules = [
   },
   {
     id: 'python',
-    number: '02',
     title: 'Python for Analytics',
     subtitle: '& Data Science',
-    video: "https://www.youtube.com/watch?v=rfscVS0vtbw",
-    icon: (
-      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#6366F1">
-        <polyline points="16 18 22 12 16 6"/>
-        <polyline points="8 6 2 12 8 18"/>
-      </svg>
-    ),
+    video: "https://www.youtube.com/embed/rfscVS0vtbw",
     details: [
       'Data manipulation & performance optimization',
       'Statistical analysis & modeling',
@@ -46,16 +32,9 @@ const modules = [
   },
   {
     id: 'powerbi',
-    number: '03',
     title: 'Business Intelligence',
     subtitle: 'Power BI & Visualization',
-    video: "https://www.youtube.com/watch?v=AGrl-H87pRU",
-    icon: (
-      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#6366F1">
-        <rect x="3" y="12" width="4" height="9"/>
-        <rect x="10" y="7" width="4" height="14"/>
-      </svg>
-    ),
+    video: "https://www.youtube.com/embed/AGrl-H87pRU",
     details: [
       'Enterprise BI design principles',
       'Executive dashboards',
@@ -65,15 +44,9 @@ const modules = [
   },
   {
     id: 'genai',
-    number: '04',
     title: 'Generative AI',
     subtitle: '& LLM Systems',
-    video: "https://www.youtube.com/watch?v=VtRLrQ3Ev-U",
-    icon: (
-      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#6366F1">
-        <circle cx="12" cy="12" r="4"/>
-      </svg>
-    ),
+    video: "https://www.youtube.com/embed/VtRLrQ3Ev-U",
     details: [
       'LLM architecture & prompt engineering',
       'GenAI use cases',
@@ -127,26 +100,20 @@ export default function SyllabusGrid() {
               onClick={() => toggleCard(mod.id)}
             >
 
-              {/* ▶ PLAY BUTTON */}
-              <div
-                className="syllabus-play-btn"
-                onClick={(e) => {
-                  e.stopPropagation()
-                  window.open(mod.video, "_blank")
-                }}
-              >
-                ▶
-              </div>
-
-              <div className="syllabus-card-header">
-                <span className="syllabus-card-number">{mod.number}</span>
-                <div className="syllabus-card-icon">{mod.icon}</div>
+              {/* 🔥 ALWAYS VISIBLE VIDEO */}
+              <div className="syllabus-video-box">
+                <iframe
+                  src={mod.video}
+                  title={mod.title}
+                  allow="autoplay; encrypted-media"
+                  allowFullScreen
+                />
               </div>
 
               <h3 className="syllabus-card-title">{mod.title}</h3>
               <p className="syllabus-card-subtitle">{mod.subtitle}</p>
 
-              {/* ✅ FIXED DETAILS */}
+              {/* DETAILS */}
               <div className="syllabus-card-details">
                 {expandedId === mod.id && (
                   <ul className="syllabus-detail-list">
@@ -159,7 +126,6 @@ export default function SyllabusGrid() {
                 )}
               </div>
 
-              {/* ✅ FIXED TOGGLE */}
               <span
                 className="syllabus-card-toggle"
                 onClick={(e) => {

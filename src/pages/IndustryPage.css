@@ -1,0 +1,126 @@
+/* ================= PAGE ================= */
+.industry-page {
+  min-height: 100vh;
+  padding: 100px 20px;
+  background: #020617;
+  color: #e2e8f0;
+}
+
+/* ================= CONTAINER ================= */
+.industry-container {
+  max-width: 1200px;
+  margin: auto;
+
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 60px;
+
+  align-items: start;
+}
+
+/* ================= LEFT SIDE ================= */
+.industry-left {
+  display: flex;
+  flex-direction: column;
+}
+
+/* TITLE */
+.industry-left h1 {
+  font-size: 42px;
+  margin-bottom: 24px;
+  line-height: 1.2;
+
+  background: linear-gradient(90deg, #6366F1, #818CF8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* DESCRIPTION */
+.industry-desc {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.industry-desc p {
+  color: #cbd5f5;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+/* ================= RIGHT SIDE ================= */
+.industry-right {
+  display: flex;
+  flex-direction: column;
+}
+
+/* TITLE */
+.industry-right h2 {
+  font-size: 20px;
+  margin-bottom: 20px;
+  color: #e2e8f0;
+}
+
+/* ================= COMPANY GRID ================= */
+.company-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+/* ================= COMPANY CARD ================= */
+.company-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  padding: 14px 16px;
+  border-radius: 12px;
+
+  background: rgba(15,23,42,0.85);
+  border: 1px solid rgba(255,255,255,0.08);
+
+  transition: all 0.25s ease;
+}
+
+/* ICON */
+.company-icon {
+  width: 36px;
+  height: 36px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 8px;
+
+  background: rgba(99,102,241,0.2);
+  font-size: 16px;
+}
+
+/* TEXT */
+.company-card span {
+  font-size: 14px;
+  font-weight: 500;
+  color: #e2e8f0;
+}
+
+/* HOVER */
+.company-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(99,102,241,0.4);
+
+  box-shadow: 0 8px 20px rgba(99,102,241,0.2);
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 900px) {
+  .industry-container {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .company-grid {
+    grid-template-columns: 1fr;
+  }
+}
