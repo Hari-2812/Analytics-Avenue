@@ -10,7 +10,7 @@ const modules = [
     id: 'sql',
     title: 'SQL & Data Engineering',
     subtitle: 'For Analytics Platforms',
-    video: "https://www.youtube.com/embed/HXV3zeQKqGY",
+    videoId: "HXV3zeQKqGY",
     details: [
       'Advanced SQL for analytics, reporting & optimization',
       'Designing analytical data models & warehouse structures',
@@ -22,7 +22,7 @@ const modules = [
     id: 'python',
     title: 'Python for Analytics',
     subtitle: '& Data Science',
-    video: "https://www.youtube.com/embed/rfscVS0vtbw",
+    videoId: "rfscVS0vtbw",
     details: [
       'Data manipulation & performance optimization',
       'Statistical analysis & modeling',
@@ -34,7 +34,7 @@ const modules = [
     id: 'powerbi',
     title: 'Business Intelligence',
     subtitle: 'Power BI & Visualization',
-    video: "https://www.youtube.com/embed/AGrl-H87pRU",
+    videoId: "AGrl-H87pRU",
     details: [
       'Enterprise BI design principles',
       'Executive dashboards',
@@ -46,7 +46,7 @@ const modules = [
     id: 'genai',
     title: 'Generative AI',
     subtitle: '& LLM Systems',
-    video: "https://www.youtube.com/embed/VtRLrQ3Ev-U",
+    videoId: "VtRLrQ3Ev-U",
     details: [
       'LLM architecture & prompt engineering',
       'GenAI use cases',
@@ -59,18 +59,19 @@ const modules = [
 export default function SyllabusGrid() {
   const sectionRef = useRef(null)
   const [expandedId, setExpandedId] = useState(null)
+  const [playingId, setPlayingId] = useState(null)
 
   useEffect(() => {
     const ctx = gsap.context(() => {
       gsap.from('.syllabus-card', {
         scrollTrigger: {
           trigger: sectionRef.current,
-          start: 'top 75%',
+          start: 'top 85%',
         },
-        y: 60,
+        y: 50,
         opacity: 0,
-        duration: 0.7,
-        stagger: 0.15,
+        duration: 0.6,
+        stagger: 0.12,
       })
     }, sectionRef)
 
@@ -79,6 +80,10 @@ export default function SyllabusGrid() {
 
   const toggleCard = (id) => {
     setExpandedId(expandedId === id ? null : id)
+  }
+
+  const playVideo = (id) => {
+    setPlayingId(id)
   }
 
   return (
@@ -100,14 +105,32 @@ export default function SyllabusGrid() {
               onClick={() => toggleCard(mod.id)}
             >
 
-              {/* 🔥 ALWAYS VISIBLE VIDEO */}
-              <div className="syllabus-video-box">
-                <iframe
-                  src={mod.video}
-                  title={mod.title}
-                  allow="autoplay; encrypted-media"
-                  allowFullScreen
-                />
+              {/* 🔥 VIDEO (THUMBNAIL → PLAY) */}
+              <div
+                className="syllabus-video-box"
+                onClick={(e) => {
+                  e.stopPropagation()
+                  playVideo(mod.id)
+                }}
+              >
+                {playingId === mod.id ? (
+                  <iframe
+                    src={`https://www.youtube.com/embed/${mod.videoId}?autoplay=1&rel=0&modestbranding=1&playsinline=1`}
+                    title={mod.title}
+                    allow="autoplay; encrypted-media"
+                    allowFullScreen
+                  />
+                ) : (
+                  <div className="thumbnail-wrapper">
+                    <img
+                      src={`https://img.youtube.com/vi/${mod.videoId}/hqdefault.jpg`}
+                      alt={mod.title}
+                      className="video-thumbnail"
+                      loading="lazy"
+                    />
+                    <div className="play-button">▶</div>
+                  </div>
+                )}
               </div>
 
               <h3 className="syllabus-card-title">{mod.title}</h3>
