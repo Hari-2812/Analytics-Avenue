@@ -5,60 +5,43 @@ import './SampleProjects.css'
 
 gsap.registerPlugin(ScrollTrigger)
 
+/* 🔥 WEBP IMAGES */
 const projects = [
   {
     id: 'ecom-analytics',
     title: 'E-Commerce Sales Analytics',
     tech: ['SQL', 'Power BI', 'Python'],
-    desc: 'End-to-end sales analysis pipeline with Power BI dashboard — revenue trends, churn risk, and product performance.',
-    image: '/assets/projects/project-sql.jpg',
+    desc: 'End-to-end sales analysis pipeline with Power BI dashboard.',
+    image: '/assets/projects/project-sql.webp',
     fallbackIcon: '📊',
     metrics: ['15M+ rows analyzed', 'Real retail dataset'],
   },
   {
     id: 'churn-prediction',
     title: 'Customer Churn Prediction',
-    tech: ['Python', 'Scikit-learn', 'XGBoost'],
-    desc: 'ML classification model predicting churn with 92% accuracy. Feature engineering + SHAP explainability included.',
-    image: '/assets/projects/project-python.jpg',
+    tech: ['Python', 'ML', 'XGBoost'],
+    desc: 'ML model predicting churn with 92% accuracy.',
+    image: '/assets/projects/project-python.webp',
     fallbackIcon: '🤖',
-    metrics: ['92% Accuracy', 'SHAP Explainability'],
+    metrics: ['92% Accuracy'],
   },
   {
     id: 'powerbi-exec',
-    title: 'Executive BI Command Centre',
-    tech: ['Power BI', 'DAX', 'SQL Server'],
-    desc: 'Real-time C-suite dashboard with drill-through reports, KPI alerts, and predictive forecasting.',
-    image: '/assets/projects/project-powerbi.jpg',
+    title: 'Executive BI Dashboard',
+    tech: ['Power BI', 'DAX'],
+    desc: 'Real-time executive dashboard.',
+    image: '/assets/projects/project-powerbi.webp',
     fallbackIcon: '📈',
-    metrics: ['5 departments', 'Live refresh'],
+    metrics: ['Live refresh'],
   },
   {
     id: 'genai-chatbot',
-    title: 'GenAI Analytics Copilot',
-    tech: ['LLMs', 'LangChain', 'Python', 'RAG'],
-    desc: 'AI chatbot that answers business analytics questions by querying your data warehouse using natural language.',
-    image: '/assets/projects/project-genai.jpg',
+    title: 'GenAI Copilot',
+    tech: ['LLM', 'Python'],
+    desc: 'AI chatbot for analytics queries.',
+    image: '/assets/projects/project-genai.webp',
     fallbackIcon: '💬',
-    metrics: ['GPT-4 Backend', 'RAG Architecture'],
-  },
-  {
-    id: 'data-pipeline',
-    title: 'Scalable ETL Data Pipeline',
-    tech: ['Python', 'DBT', 'Snowflake', 'Airflow'],
-    desc: 'Production-grade ELT pipeline ingesting multi-source data into Snowflake. Orchestrated with Airflow.',
-    image: '/assets/projects/project-ml.jpg',
-    fallbackIcon: '⚙️',
-    metrics: ['Cloud Native', '10TB+ data'],
-  },
-  {
-    id: 'agentic-ai',
-    title: 'Agentic AI Supply Chain Bot',
-    tech: ['Agents', 'Python', 'LangGraph', 'GenAI'],
-    desc: 'Autonomous AI agent that monitors supply chain anomalies, triggers alerts, and drafts executive reports.',
-    image: '/assets/projects/project-agents.jpg',
-    fallbackIcon: '🚀',
-    metrics: ['Multi-Agent', 'Auto Decision'],
+    metrics: ['RAG system'],
   },
 ]
 
@@ -66,8 +49,8 @@ function ProjectCard({ project }) {
   const [imgError, setImgError] = useState(false)
 
   return (
-    <div className="project-card" id={`project-${project.id}`}>
-      
+    <div className="project-card">
+
       <div className="project-image-wrap">
         {!imgError ? (
           <img
@@ -75,38 +58,30 @@ function ProjectCard({ project }) {
             alt={project.title}
             className="project-image"
             loading="lazy"
+            width="300"
+            height="200"
             onError={() => setImgError(true)}
           />
         ) : (
           <div className="project-fallback">
-            <span className="project-fallback-icon">
-              {project.fallbackIcon}
-            </span>
+            {project.fallbackIcon}
           </div>
         )}
-
-        {/* Overlay (kept for premium look) */}
-        <div className="project-image-overlay" />
       </div>
 
       <div className="project-body">
-        <h3 className="project-title">{project.title}</h3>
-
-        <p className="project-desc">{project.desc}</p>
+        <h3>{project.title}</h3>
+        <p>{project.desc}</p>
 
         <div className="project-metrics">
           {project.metrics.map((m) => (
-            <span key={m} className="project-metric">
-              {m}
-            </span>
+            <span key={m}>{m}</span>
           ))}
         </div>
 
-        <div className="project-tech-stack">
+        <div className="project-tech">
           {project.tech.map((t) => (
-            <span key={t} className="project-tech-tag">
-              {t}
-            </span>
+            <span key={t}>{t}</span>
           ))}
         </div>
       </div>
@@ -120,27 +95,21 @@ export default function SampleProjects() {
   useEffect(() => {
     const ctx = gsap.context(() => {
 
-      gsap.from('.projects-header', {
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top 80%',
-        },
-        y: 50,
-        opacity: 0,
-        duration: 0.8,
-        ease: 'power3.out',
-      })
+      /* 🔥 LIGHTWEIGHT ANIMATION */
+      const cards = gsap.utils.toArray('.project-card')
 
-      gsap.from('.project-card', {
-        scrollTrigger: {
-          trigger: '.projects-grid',
-          start: 'top 80%',
-        },
-        y: 60,
-        opacity: 0,
-        duration: 0.7,
-        stagger: 0.12,
-        ease: 'power3.out',
+      cards.forEach((card, i) => {
+        if (i < 4) { // limit animations
+          gsap.from(card, {
+            scrollTrigger: {
+              trigger: card,
+              start: 'top 90%',
+            },
+            y: 40,
+            opacity: 0,
+            duration: 0.5,
+          })
+        }
       })
 
     }, sectionRef)
@@ -149,50 +118,17 @@ export default function SampleProjects() {
   }, [])
 
   return (
-    <section className="projects-section" ref={sectionRef} id="projects">
+    <section className="projects-section" ref={sectionRef}>
       <div className="container">
 
-        <div className="projects-header">
-          <span className="section-label">Sample Projects</span>
-
-          <h2 className="section-title">
-            Industry-Grade Projects You&apos;ll{' '}
-            <span className="accent-rose">Actually Build</span>
-          </h2>
-
-          <p className="section-subtitle">
-            Not toy datasets. Real-world problems from Healthcare, Retail,
-            Finance, Supply Chain, and AI — the kind that get you hired.
-          </p>
-        </div>
+        <h2 className="section-title">
+          Industry Projects You'll <span>Build</span>
+        </h2>
 
         <div className="projects-grid">
           {projects.map((p) => (
             <ProjectCard key={p.id} project={p} />
           ))}
-        </div>
-
-        <div className="projects-cta">
-          <p className="projects-cta-text">
-            50+ more industry projects await inside the program.
-          </p>
-
-          <a href="#enroll" className="quantum-btn-primary">
-            Get Access to All Projects
-            <svg
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="M5 12h14" />
-              <path d="m12 5 7 7-7 7" />
-            </svg>
-          </a>
         </div>
 
       </div>

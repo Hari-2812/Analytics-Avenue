@@ -63,23 +63,32 @@ export default function SyllabusGrid() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.from('.syllabus-card', {
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top 85%',
-        },
-        y: 50,
-        opacity: 0,
-        duration: 0.6,
-        stagger: 0.12,
+
+      const cards = gsap.utils.toArray('.syllabus-card')
+
+      cards.forEach((card, i) => {
+        if (i < 4) { // 🔥 limit animation count
+          gsap.from(card, {
+            scrollTrigger: {
+              trigger: card,
+              start: 'top 90%',
+              toggleActions: 'play none none none',
+            },
+            y: 40,
+            opacity: 0,
+            duration: 0.5,
+            ease: 'power2.out'
+          })
+        }
       })
+
     }, sectionRef)
 
     return () => ctx.revert()
   }, [])
 
   const toggleCard = (id) => {
-    setExpandedId(expandedId === id ? null : id)
+    setExpandedId(prev => (prev === id ? null : id))
   }
 
   const playVideo = (id) => {
@@ -102,10 +111,9 @@ export default function SyllabusGrid() {
             <div
               key={mod.id}
               className={`syllabus-card ${expandedId === mod.id ? 'syllabus-card-expanded' : ''}`}
-              onClick={() => toggleCard(mod.id)}
             >
 
-              {/* 🔥 VIDEO (THUMBNAIL → PLAY) */}
+              {/* 🎬 VIDEO OPTIMIZED */}
               <div
                 className="syllabus-video-box"
                 onClick={(e) => {
@@ -115,8 +123,9 @@ export default function SyllabusGrid() {
               >
                 {playingId === mod.id ? (
                   <iframe
-                    src={`https://www.youtube.com/embed/${mod.videoId}?autoplay=1&rel=0&modestbranding=1&playsinline=1`}
+                    src={`https://www.youtube.com/embed/${mod.videoId}?autoplay=1`}
                     title={mod.title}
+                    loading="lazy"   /* 🔥 important */
                     allow="autoplay; encrypted-media"
                     allowFullScreen
                   />
@@ -125,7 +134,6 @@ export default function SyllabusGrid() {
                     <img
                       src={`https://img.youtube.com/vi/${mod.videoId}/hqdefault.jpg`}
                       alt={mod.title}
-                      className="video-thumbnail"
                       loading="lazy"
                     />
                     <div className="play-button">▶</div>
@@ -137,24 +145,17 @@ export default function SyllabusGrid() {
               <p className="syllabus-card-subtitle">{mod.subtitle}</p>
 
               {/* DETAILS */}
-              <div className="syllabus-card-details">
-                {expandedId === mod.id && (
-                  <ul className="syllabus-detail-list">
-                    {mod.details.map((d, i) => (
-                      <li key={i} className="syllabus-detail-item">
-                        {d}
-                      </li>
-                    ))}
-                  </ul>
-                )}
-              </div>
+              {expandedId === mod.id && (
+                <ul className="syllabus-detail-list">
+                  {mod.details.map((d, i) => (
+                    <li key={i}>{d}</li>
+                  ))}
+                </ul>
+              )}
 
               <span
                 className="syllabus-card-toggle"
-                onClick={(e) => {
-                  e.stopPropagation()
-                  toggleCard(mod.id)
-                }}
+                onClick={() => toggleCard(mod.id)}
               >
                 {expandedId === mod.id ? 'Collapse' : 'View Details'}
               </span>

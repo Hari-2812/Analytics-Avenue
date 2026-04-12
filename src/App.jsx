@@ -1,15 +1,14 @@
-import { lazy, Suspense } from 'react'
+import { lazy, Suspense, useEffect, useState } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import './App.css'
 import Navbar from './components/Navbar/Navbar'
 
-/* ---------- HOME SECTIONS ---------- */
+/* ---------- ABOVE THE FOLD (FAST LOAD) ---------- */
 import FounderHero from './components/FounderHero/FounderHero'
 import HeroSection from './components/HeroSection/HeroSection'
 
-import AIFlowFull from "./components/AIFlowFull/AIFlowFull"
-
-/* ---------- LAZY COMPONENTS ---------- */
+/* ---------- LAZY LOAD EVERYTHING ELSE ---------- */
+const AIFlowFull = lazy(() => import("./components/AIFlowFull/AIFlowFull"))
 const TargetRoleOrbital = lazy(() => import('./components/TargetRoleOrbital/TargetRoleOrbital'))
 const SyllabusGrid = lazy(() => import('./components/SyllabusGrid/SyllabusGrid'))
 const PlacementGrid = lazy(() => import('./components/PlacementGrid/PlacementGrid'))
@@ -20,16 +19,6 @@ const TrustBentoGrid = lazy(() => import('./components/TrustBentoGrid/TrustBento
 const ExpertPanel = lazy(() => import('./components/ExpertPanel/ExpertPanel'))
 const FAQSection = lazy(() => import('./components/FAQSection/FAQSection'))
 const Footer = lazy(() => import('./components/Footer/Footer'))
-
-/* ---------- ROLE PAGES ---------- */
-// const DataScientist = lazy(() => import('./pages/DataScientist'))
-// const DataEngineer = lazy(() => import('./pages/DataEngineer'))
-// const BIDeveloper = lazy(() => import('./pages/BIDeveloper'))
-// const AIEngineer = lazy(() => import('./pages/AIEngineer'))
-// const MLEngineer = lazy(() => import('./pages/MLEngineer'))
-// const AgenticAI = lazy(() => import('./pages/AgenticAI'))
-// const NLPEngineer = lazy(() => import('./pages/NLPEngineer'))
-// const AnalyticsConsultant = lazy(() => import('./pages/AnalyticsConsultant'))
 
 /* ---------- INDUSTRY PAGES ---------- */
 const Manufacturing = lazy(() => import('./pages/Manufacturing'))
@@ -52,59 +41,39 @@ function SectionLoader() {
 
 /* ---------- HOME PAGE ---------- */
 function Home() {
+  const [showRest, setShowRest] = useState(false)
+
+  useEffect(() => {
+    // 🔥 Delay heavy sections (improves LCP)
+    const timer = setTimeout(() => {
+      setShowRest(true)
+    }, 1000)
+
+    return () => clearTimeout(timer)
+  }, [])
+
   return (
     <main>
+      {/* ✅ FAST FIRST LOAD */}
       <FounderHero />
-      
       <HeroSection />
 
-      <AIFlowFull />
-
-      <Suspense fallback={<SectionLoader />}>
-        <SyllabusGrid />
-      </Suspense>
-
-      <Suspense fallback={<SectionLoader />}>
-        <PlacementGrid />
-      </Suspense>
-      
-      <Suspense fallback={<SectionLoader />}>
-        <TargetRoleOrbital />
-      </Suspense>
-
-      
-
-      
-
-      <Suspense fallback={<SectionLoader />}>
-        <SampleProjects />
-      </Suspense>
-
-      <Suspense fallback={<SectionLoader />}>
-        <EnrollmentTimeline />
-      </Suspense>
-
-      <Suspense fallback={<SectionLoader />}>
-        <StatsStrip />
-      </Suspense>
-
-      
-
-      <Suspense fallback={<SectionLoader />}>
-        <ExpertPanel />
-      </Suspense>
-
-      <Suspense fallback={<SectionLoader />}>
-        <TrustBentoGrid />
-      </Suspense>
-
-      <Suspense fallback={<SectionLoader />}>
-        <FAQSection />
-      </Suspense>
-
-      <Suspense fallback={<SectionLoader />}>
-        <Footer />
-      </Suspense>
+      {/* 🔥 LOAD REST AFTER DELAY */}
+      {showRest && (
+        <Suspense fallback={<SectionLoader />}>
+          <AIFlowFull />
+          <SyllabusGrid />
+          <PlacementGrid />
+          <TargetRoleOrbital />
+          <SampleProjects />
+          <EnrollmentTimeline />
+          <StatsStrip />
+          <ExpertPanel />
+          <TrustBentoGrid />
+          <FAQSection />
+          <Footer />
+        </Suspense>
+      )}
     </main>
   )
 }
@@ -122,16 +91,6 @@ function App() {
             {/* HOME */}
             <Route path="/" element={<Home />} />
 
-            ROLE PAGES
-            {/* <Route path="/data-scientist" element={<DataScientist />} />
-            <Route path="/data-engineer" element={<DataEngineer />} />
-            <Route path="/bi-developer" element={<BIDeveloper />} />
-            <Route path="/ai-engineer" element={<AIEngineer />} />
-            <Route path="/ml-engineer" element={<MLEngineer />} />
-            <Route path="/agentic-ai" element={<AgenticAI />} />
-            <Route path="/nlp-engineer" element={<NLPEngineer />} />
-            <Route path="/analytics-consultant" element={<AnalyticsConsultant />} /> */}
-
             {/* INDUSTRY PAGES */}
             <Route path="/manufacturing" element={<Manufacturing />} />
             <Route path="/it" element={<ITServices />} />
@@ -144,7 +103,6 @@ function App() {
 
           </Routes>
         </Suspense>
-
       </div>
     </BrowserRouter>
   )

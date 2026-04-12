@@ -94,7 +94,13 @@ export default function FounderHero() {
             <div className="fh-glow-ring" ref={glowRef}></div>
 
             <div className="fh-image-frame" ref={imageRef}>
-              <img src="/assets/founder.jpg" className="fh-image" />
+              <img
+                src="/assets/founder.webp"
+                alt="Founder"
+                width="400"
+                height="400"
+                loading="eager"
+              />
             </div>
 
             {/* FLOATING BADGES */}
