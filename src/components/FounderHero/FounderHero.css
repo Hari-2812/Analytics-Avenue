@@ -1,264 +1,337 @@
-/* ========================================
-   GOOGLE FONT (PROFESSIONAL)
-======================================== */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-
-/* ========================================
-   ROOT
-======================================== */
-:root {
-  --font-heading: 'Inter', sans-serif;
-  --font-body: 'Inter', sans-serif;
-}
-
-/* ========================================
-   HERO SECTION
-======================================== */
 .founder-hero {
   position: relative;
   min-height: 90vh;
   display: flex;
   align-items: center;
-  padding: 80px 10px 60px; /* 🔥 reduced side space */
-  background: var(--bg-deep);
+  background: #020617;
   overflow: hidden;
+  padding: 80px 10px;
 }
 
-/* Background glow */
-.founder-hero::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at 20% 40%, rgba(99,102,241,0.12), transparent 60%);
-  z-index: 0;
-}
-
-/* ========================================
-   CONTAINER (WIDER)
-======================================== */
 .fh-container {
-  position: relative;
-  z-index: 2;
+  width: 100%;
+  max-width: 1400px;
+  margin: auto;
 
   display: grid;
-  grid-template-columns: 1.4fr 0.6fr; /* 🔥 better spread */
-  align-items: center;
+  grid-template-columns: 1.2fr 1fr;
   gap: 60px;
+  align-items: center;
 
-  max-width: 1400px; /* 🔥 wider */
-  margin: auto;
-  padding: 0 40px; /* balanced spacing */
+  z-index: 2;
+  position: relative;
 }
 
-/* ========================================
-   LEFT CONTENT
-======================================== */
+/* LEFT */
 .fh-content {
-  max-width: 640px; /* 🔥 more width */
+  max-width: 650px;
 }
 
-/* BADGE */
 .fh-badge {
-  display: inline-flex;
+  display: inline-block;
   padding: 6px 14px;
   border-radius: 999px;
-
-  background: rgba(99,102,241,0.08);
-  border: 1px solid rgba(99,102,241,0.25);
-
-  font-size: 0.75rem;
-  font-weight: 500;
+  background: rgba(99,102,241,0.1);
   color: #818CF8;
+  font-size: 12px;
   margin-bottom: 16px;
 }
 
-/* ========================================
-   TITLE
-======================================== */
+/* TEXT */
 .fh-title-line {
   display: block;
-  font-family: var(--font-heading);
-  font-size: clamp(2.4rem, 4vw, 3.2rem);
+  font-size: clamp(2rem, 4vw, 3rem);
   font-weight: 700;
-  line-height: 1.15;
-  letter-spacing: -0.6px;
-  color: #ffffff;
+  color: white;
+  line-height: 1.1;
 }
 
-.fh-title-line:not(:last-child) {
-  margin-bottom: 6px;
-}
-
-/* Gradient accents */
 .fh-title-accent {
-  background: linear-gradient(90deg, #6366F1, #818CF8);
+  background: linear-gradient(90deg,#6366F1,#818CF8);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 .fh-title-accent-rose {
-  background: linear-gradient(90deg, #EC4899, #F472B6);
+  background: linear-gradient(90deg,#EC4899,#F472B6);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
-/* ========================================
-   SUBTITLE
-======================================== */
 .fh-subtitle {
-  font-family: var(--font-body);
-  font-size: 1rem;
-  line-height: 1.7;
   color: #cbd5f5;
   margin-top: 16px;
 }
 
-/* TAGLINE */
 .fh-tagline {
-  font-size: 0.9rem;
   color: #94a3b8;
-  margin: 12px 0 24px;
+  margin-top: 10px;
 }
 
-/* ========================================
-   BUTTONS
-======================================== */
+/* BUTTONS */
 .fh-cta-group {
   display: flex;
-  gap: 14px;
+  gap: 12px;
+  margin-top: 20px;
 }
 
 .fh-btn {
-  padding: 12px 26px;
-  font-size: 0.9rem;
-  font-weight: 600;
+  padding: 12px 22px;
   border-radius: 8px;
-  transition: all 0.25s ease;
+  font-weight: 600;
+  text-decoration: none;
 }
 
-.fh-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(99,102,241,0.25);
+.fh-btn.primary {
+  background: #6366F1;
+  color: white;
 }
 
-/* ========================================
-   IMAGE SECTION
-======================================== */
+.fh-btn.outline {
+  border: 1px solid #6366F1;
+  color: #6366F1;
+}
+
+/* RIGHT */
 .fh-image-col {
   position: relative;
   display: flex;
-  justify-content: flex-end;
+  flex-direction: column;
+  align-items: center;
 }
 
-/* Glow */
+/* STACK */
+.fh-image-stack {
+  position: relative;
+  width: fit-content;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* glow */
 .fh-glow-ring {
   position: absolute;
-  width: 360px;
-  height: 360px;
-  background: radial-gradient(circle, rgba(99,102,241,0.2), transparent);
-  filter: blur(60px);
-}
-
-/* IMAGE FRAME */
-.fh-image-frame {
-  width: 300px;
-  height: 360px;
-  border-radius: 18px;
-  overflow: hidden;
-
-  background: #0f172a;
-  border: 1px solid rgba(255,255,255,0.08);
-
-  box-shadow:
-    0 25px 70px rgba(0,0,0,0.6),
-    0 0 40px rgba(99,102,241,0.2);
-
-  transform: translateX(10px); /* 🔥 fixed */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -55%);
+  width: 340px;
+  height: 340px;
+  background: radial-gradient(circle,#6366F1,transparent);
+  filter: blur(70px);
+  z-index: 0;
 }
 
 /* IMAGE */
+.fh-image-frame {
+  width: 300px;
+  height: 380px;
+
+  border-radius: 18px;
+  overflow: hidden;
+
+  position: relative;
+  z-index: 3;
+
+  transform: rotate(-2deg);
+  box-shadow: 0 30px 80px rgba(0,0,0,0.6);
+
+  transition: 0.3s ease;
+}
+
+.fh-image-frame:hover {
+  transform: rotate(0deg) scale(1.02);
+}
+
 .fh-image {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
-/* ========================================
-   FLOATING BADGES
-======================================== */
+/* FLOATING BADGES */
 .fh-floating-badge {
   position: absolute;
-  background: rgba(15,23,42,0.85);
-  border: 1px solid rgba(255,255,255,0.08);
+  z-index: 10;
+
+  background: rgba(15,23,42,0.92);
+  color: white;
+
   padding: 6px 10px;
-  border-radius: 8px;
-  font-size: 0.72rem;
-  color: #fff;
+  border-radius: 10px;
+  font-size: 12px;
 
-  box-shadow: 0 8px 20px rgba(0,0,0,0.4);
-}
-
-.fh-fb-1 { top: 10%; left: -20px; }
-.fh-fb-2 { bottom: 15%; right: -40px; }
-.fh-fb-3 { bottom: -15px; left: 30%; }
-
-/* ========================================
-   STATS
-======================================== */
-.fh-stats-bar {
-  position: absolute;
-  right: 60px;
-  bottom: 80px;
-}
-
-.fh-stats-grid {
   display: flex;
-  gap: 30px;
+  align-items: center;
+  gap: 6px;
+
+  box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+  white-space: nowrap;
 }
 
-.fh-stat-item {
+.fh-fb-1 {
+  top: 20px;
+  left: -60px;
+  transform: rotate(-6deg);
+}
+
+.fh-fb-2 {
+  top: 90px;
+  right: -70px;
+  transform: rotate(4deg);
+}
+
+.fh-fb-3 {
+  bottom: 30px;
+  left: -55px;
+  transform: rotate(-3deg);
+}
+
+/* STATS */
+.fh-stats-bar {
+  margin-top: 18px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  width: 100%;
+  max-width: 340px;
+
+  padding: 12px 14px;
+  border-radius: 14px;
+
+  background: rgba(15,23,42,0.6);
+  backdrop-filter: blur(15px);
+
+  position: relative;
+  z-index: 2;
+}
+
+.fh-stat {
   text-align: center;
 }
 
 .fh-stat-value {
-  font-size: 1.7rem;
-  font-weight: 600;
-  color: #fff;
+  font-size: 18px;
+  font-weight: 700;
+  color: white;
 }
 
 .fh-stat-label {
-  font-size: 0.75rem;
+  font-size: 11px;
   color: #94a3b8;
 }
 
-/* ========================================
-   RESPONSIVE
-======================================== */
-@media (max-width: 1024px) {
+.fh-stat-divider {
+  width: 1px;
+  height: 30px;
+  background: rgba(255,255,255,0.2);
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
   .fh-container {
     grid-template-columns: 1fr;
     text-align: center;
-    padding: 0 20px;
   }
 
   .fh-image-col {
-    justify-content: center;
+    align-items: center;
   }
 
-  .fh-image-frame {
-    transform: none;
+  .fh-floating-badge {
+    position: relative;
+    margin: 6px auto;
+    transform: none !important;
   }
+}
 
-  .fh-stats-bar {
-    position: static;
-    margin-top: 30px;
-  }
+/* =========================
+   ⭐ ORBITAL NODE CLICK FIX
+========================= */
 
-  .fh-stats-grid {
-    justify-content: center;
-  }
+.node {
+  position: absolute;
+  top: 50%;
+  left: 50%;
 
-  .fh-cta-group {
-    justify-content: center;
+  width: 115px;
+  height: 115px;
+
+  border-radius: 18px;
+
+  background: rgba(15,23,42,0.88);
+  backdrop-filter: blur(12px);
+
+  border: 1px solid rgba(255,255,255,0.08);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+  transition: all 0.25s ease;
+
+  transform: translate(-50%, -50%);
+}
+
+/* hover */
+.node:hover {
+  transform: translate(-50%, -50%) scale(1.12);
+  box-shadow: 0 0 25px rgba(99,102,241,0.3);
+}
+
+/* ⭐ CLICKED NODE (IMPORTANT) */
+.node.active {
+  border: 1px solid #6366F1;
+  box-shadow: 0 0 35px rgba(99,102,241,0.55);
+  transform: translate(-50%, -50%) scale(1.15);
+  background: rgba(15,23,42,0.95);
+}
+
+/* icon highlight */
+.node.active .icon {
+  transform: scale(1.2);
+  color: #6366F1;
+}
+
+/* text highlight */
+.node.active span {
+  color: #e0e7ff;
+  font-weight: 600;
+}
+
+/* ICON */
+.icon {
+  font-size: 26px;
+  transition: 0.2s ease;
+}
+
+/* TEXT */
+.node span {
+  font-size: 11px;
+  margin-top: 6px;
+  color: #cbd5f5;
+  transition: 0.2s ease;
+}
+
+/* RIPPLE */
+.ripple {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background: rgba(99,102,241,0.6);
+  border-radius: 50%;
+  transform: scale(0);
+  animation: ripple 0.6s linear;
+}
+
+@keyframes ripple {
+  to {
+    transform: scale(6);
+    opacity: 0;
   }
 }

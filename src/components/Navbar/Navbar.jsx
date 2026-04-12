@@ -7,6 +7,7 @@ const navLinks = [
   { label: 'Placement', href: '#placement' },
   { label: 'Team', href: '#experts' },
   { label: 'FAQ', href: '#faq' },
+  { label: 'Broadcast', href: '#broadcast' },
 ]
 
 export default function Navbar() {
@@ -22,21 +23,20 @@ export default function Navbar() {
   }, [])
 
   useEffect(() => {
-    if (mobileOpen) {
-      document.body.style.overflow = 'hidden'
-    } else {
-      document.body.style.overflow = ''
-    }
+    document.body.style.overflow = mobileOpen ? 'hidden' : ''
   }, [mobileOpen])
 
   return (
     <header className={`navbar ${scrolled ? 'navbar-scrolled' : ''}`} id="navbar">
       <div className="navbar-inner container">
+
+        {/* LOGO */}
         <a href="#" className="navbar-logo">
           <span className="logo-icon">AA</span>
           <span className="logo-text">Analytics Avenue</span>
         </a>
 
+        {/* NAV LINKS */}
         <nav className={`navbar-nav ${mobileOpen ? 'navbar-nav-open' : ''}`}>
           {navLinks.map((link) => (
             <a
@@ -48,6 +48,8 @@ export default function Navbar() {
               {link.label}
             </a>
           ))}
+
+          {/* MOBILE CTA ONLY */}
           <a
             href="#enroll"
             className="quantum-btn-primary navbar-cta-mobile"
@@ -57,20 +59,16 @@ export default function Navbar() {
           </a>
         </nav>
 
-        {/* <a href="#enroll" className="quantum-btn-primary navbar-cta-desktop">
-          Enroll Now
-        </a> */}
-
+        {/* HAMBURGER */}
         <button
           className={`navbar-hamburger ${mobileOpen ? 'hamburger-active' : ''}`}
           onClick={() => setMobileOpen(!mobileOpen)}
-          aria-label="Toggle navigation menu"
-          id="navbar-toggle"
         >
           <span></span>
           <span></span>
           <span></span>
         </button>
+
       </div>
 
       {mobileOpen && (

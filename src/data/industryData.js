@@ -1,3 +1,4 @@
+
 export const industryData = {
   manufacturing: {
     title: "Manufacturing",
@@ -122,6 +123,48 @@ export const industryData = {
       "Ajio",
       "Zomato",
       "Swiggy"
+    ]
+  },
+
+  logistics: {
+    title: "Logistics",
+    description: [
+      "Logistics is evolving with AI-driven supply chain optimization and real-time tracking systems.",
+      "The global logistics market is rapidly adopting automation and predictive analytics.",
+      "Agentic AI enables route optimization, demand forecasting, and warehouse automation.",
+      "Companies focus on reducing delivery time, cost, and improving operational efficiency.",
+      "There is high demand for data analysts and AI engineers in logistics tech."
+    ],
+    companies: [
+      "Delhivery",
+      "Blue Dart",
+      "DHL",
+      "FedEx",
+      "Ecom Express",
+      "Shadowfax",
+      "India Post",
+      "XpressBees"
+    ]
+  },
+
+  ev: {
+    title: "EV & Battery",
+    description: [
+      "The EV industry is growing rapidly with the shift towards sustainable transportation.",
+      "Battery analytics and energy optimization are key focus areas in this domain.",
+      "AI is used for battery performance prediction, charging optimization, and smart mobility.",
+      "Governments and companies are investing heavily in EV infrastructure.",
+      "This sector offers high-paying roles in AI, data analytics, and energy systems."
+    ],
+    companies: [
+      "Tesla",
+      "Ola Electric",
+      "Ather Energy",
+      "Tata Power EV",
+      "BYD",
+      "Exide Industries",
+      "Amara Raja",
+      "Hero Electric"
     ]
   }
 }

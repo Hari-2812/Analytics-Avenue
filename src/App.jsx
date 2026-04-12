@@ -6,7 +6,7 @@ import Navbar from './components/Navbar/Navbar'
 /* ---------- HOME SECTIONS ---------- */
 import FounderHero from './components/FounderHero/FounderHero'
 import HeroSection from './components/HeroSection/HeroSection'
-import ProofSection from "./components/ProofSection/ProofSection"
+
 import AIFlowFull from "./components/AIFlowFull/AIFlowFull"
 
 /* ---------- LAZY COMPONENTS ---------- */
@@ -55,12 +55,10 @@ function Home() {
   return (
     <main>
       <FounderHero />
-      <ProofSection />
+      
       <HeroSection />
 
-      <Suspense fallback={<SectionLoader />}>
-        <TargetRoleOrbital />
-      </Suspense>
+      <AIFlowFull />
 
       <Suspense fallback={<SectionLoader />}>
         <SyllabusGrid />
@@ -69,6 +67,14 @@ function Home() {
       <Suspense fallback={<SectionLoader />}>
         <PlacementGrid />
       </Suspense>
+      
+      <Suspense fallback={<SectionLoader />}>
+        <TargetRoleOrbital />
+      </Suspense>
+
+      
+
+      
 
       <Suspense fallback={<SectionLoader />}>
         <SampleProjects />
@@ -82,7 +88,7 @@ function Home() {
         <StatsStrip />
       </Suspense>
 
-      <AIFlowFull />
+      
 
       <Suspense fallback={<SectionLoader />}>
         <ExpertPanel />
