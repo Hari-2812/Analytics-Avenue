@@ -1,7 +1,34 @@
 import "../pages/IndustryPage.css"
-import { companyLogos } from "../utils/companyLogos"
 
 export default function IndustryLayout({ data }) {
+
+  /* 🔥 Generate Clearbit logo dynamically */
+  const getLogo = (company) => {
+    const domainMap = {
+      "TCS": "tcs.com",
+      "Infosys": "infosys.com",
+      "Wipro": "wipro.com",
+      "HCL": "hcltech.com",
+      "Tech Mahindra": "techmahindra.com",
+      "LTIMindtree": "ltimindtree.com",
+      "Reliance Industries": "ril.com",
+      "Tata Steel": "tatasteel.com",
+      "Bosch India": "bosch.in",
+      "Siemens India": "siemens.co.in",
+      "Flipkart": "flipkart.com",
+      "Amazon India": "amazon.in",
+      "Zomato": "zomato.com",
+      "Swiggy": "swiggy.com",
+      "Tesla": "tesla.com",
+      "Ola Electric": "olaelectric.com"
+    }
+
+    const domain = domainMap[company]
+    return domain
+      ? `https://logo.clearbit.com/${domain}`
+      : null
+  }
+
   return (
     <div className="industry-page">
       <div className="industry-container">
@@ -22,23 +49,31 @@ export default function IndustryLayout({ data }) {
           <h2>Companies Actively Hiring</h2>
 
           <div className="company-grid">
-            {data.companies.map((company, i) => (
-              <div key={i} className="company-card">
+            {data.companies.map((company, i) => {
 
-                <img
-                  src={companyLogos[company] || "https://via.placeholder.com/40?text=🏢"}
-                  alt={company}
-                  className="company-logo"
-                  onError={(e) => {
-                    e.target.onerror = null // ✅ stop infinite loop
-                    e.target.src = "https://via.placeholder.com/40?text=🏢"
-                  }}
-                />
+              const logo = getLogo(company)
 
-                <span>{company}</span>
+              return (
+                <div key={i} className="company-card">
 
-              </div>
-            ))}
+                  <img
+                    src={logo || "https://via.placeholder.com/40?text=🏢"}
+                    alt={company}
+                    className="company-logo"
+                    loading="lazy"
+                    width="40"
+                    height="40"
+                    onError={(e) => {
+                      e.target.onerror = null
+                      e.target.src = "https://via.placeholder.com/40?text=🏢"
+                    }}
+                  />
+
+                  <span>{company}</span>
+
+                </div>
+              )
+            })}
           </div>
         </div>
 

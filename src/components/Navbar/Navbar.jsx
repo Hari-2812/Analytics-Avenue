@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import './Navbar.css'
 
 const navLinks = [
@@ -7,7 +8,7 @@ const navLinks = [
   { label: 'Placement', href: '#placement' },
   { label: 'Team', href: '#experts' },
   { label: 'FAQ', href: '#faq' },
-  { label: 'Broadcast', href: '#broadcast' },
+  { label: 'Podcast', href: '/podcast' },
 ]
 
 export default function Navbar() {
@@ -27,29 +28,48 @@ export default function Navbar() {
   }, [mobileOpen])
 
   return (
-    <header className={`navbar ${scrolled ? 'navbar-scrolled' : ''}`} id="navbar">
+    <header className={`navbar ${scrolled ? 'navbar-scrolled' : ''}`}>
+
       <div className="navbar-inner container">
 
         {/* LOGO */}
-        <a href="#" className="navbar-logo">
+        <Link to="/" className="navbar-logo">
           <span className="logo-icon">AA</span>
           <span className="logo-text">Analytics Avenue</span>
-        </a>
+        </Link>
 
         {/* NAV LINKS */}
         <nav className={`navbar-nav ${mobileOpen ? 'navbar-nav-open' : ''}`}>
-          {navLinks.map((link) => (
-            <a
-              key={link.label}
-              href={link.href}
-              className="navbar-link"
-              onClick={() => setMobileOpen(false)}
-            >
-              {link.label}
-            </a>
-          ))}
 
-          {/* MOBILE CTA ONLY */}
+          {navLinks.map((link) =>
+            link.href.startsWith('/') ? (
+
+              /* 🔥 ROUTE LINK */
+              <Link
+                key={link.label}
+                to={link.href}
+                className="navbar-link"
+                onClick={() => setMobileOpen(false)}
+              >
+                {link.label}
+              </Link>
+
+            ) : (
+
+              /* 🔥 SCROLL LINK */
+              <a
+                key={link.label}
+                href={link.href}
+                className="navbar-link"
+                onClick={() => setMobileOpen(false)}
+              >
+                {link.label}
+              </a>
+
+            )
+          )}
+
+          {/* MOBILE CTA */}
           <a
             href="#enroll"
             className="quantum-btn-primary navbar-cta-mobile"
@@ -57,6 +77,7 @@ export default function Navbar() {
           >
             Enroll Now
           </a>
+
         </nav>
 
         {/* HAMBURGER */}
@@ -74,6 +95,7 @@ export default function Navbar() {
       {mobileOpen && (
         <div className="navbar-overlay" onClick={() => setMobileOpen(false)} />
       )}
+
     </header>
   )
 }

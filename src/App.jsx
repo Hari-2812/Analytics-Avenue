@@ -6,6 +6,9 @@ import Navbar from './components/Navbar/Navbar'
 /* ---------- ABOVE THE FOLD (FAST LOAD) ---------- */
 import FounderHero from './components/FounderHero/FounderHero'
 import HeroSection from './components/HeroSection/HeroSection'
+import PodcastPage from './pages/PodcastPage'
+import IndustryPage from './pages/IndustryPage'
+
 
 /* ---------- LAZY LOAD EVERYTHING ELSE ---------- */
 const AIFlowFull = lazy(() => import("./components/AIFlowFull/AIFlowFull"))
@@ -29,6 +32,7 @@ const Telecom = lazy(() => import('./pages/Telecom'))
 const Ecommerce = lazy(() => import('./pages/Ecommerce'))
 const Logistics = lazy(() => import('./pages/Logistics'))
 const EV = lazy(() => import('./pages/EV'))
+
 
 /* ---------- LOADER ---------- */
 function SectionLoader() {
@@ -90,6 +94,7 @@ function App() {
 
             {/* HOME */}
             <Route path="/" element={<Home />} />
+            <Route path="/podcast" element={<PodcastPage />} />
 
             {/* INDUSTRY PAGES */}
             <Route path="/manufacturing" element={<Manufacturing />} />
