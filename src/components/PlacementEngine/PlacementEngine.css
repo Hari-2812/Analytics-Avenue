@@ -141,23 +141,49 @@
   color: var(--text-body);
   line-height: 1.6;
 }
-
-/* ===== MOBILE ===== */
+/* =========================
+   📱 MOBILE FLOW FIX (TIMELINE STYLE)
+========================= */
 @media (max-width: 768px) {
-  .circuit-spine {
-    display: none;
+
+  /* bring back spine as left line */
+  .placement-engine {
+    padding-left: 20px;
   }
 
+  .circuit-spine {
+    display: block;
+    left: 10px;
+    transform: none;
+  }
+
+  .circuit-line {
+    width: 2px;
+  }
+
+  /* cards aligned to left */
   .placement-cards {
     gap: 20px;
   }
 
   .placement-card {
     max-width: 100%;
+    margin: 0;
+    margin-left: 20px; /* space from line */
+    padding: 18px;
   }
 
+  /* remove zig-zag */
   .placement-card:nth-child(odd),
   .placement-card:nth-child(even) {
-    margin: 0;
+    margin-left: 20px;
+    margin-right: 0;
+  }
+
+  /* adjust node position */
+  .placement-node {
+    position: absolute;
+    left: 0;
+    transform: translateX(-50%);
   }
 }

@@ -174,3 +174,88 @@
     display: flex;
   }
 }
+
+
+/* ===== SMALL MOBILE (Extra Fix) ===== */
+@media (max-width: 480px) {
+  .navbar-inner {
+    height: 64px;
+    padding: 0 12px;
+  }
+
+  .logo-text {
+    font-size: 1rem;
+  }
+
+  .logo-icon {
+    width: 34px;
+    height: 34px;
+    font-size: 0.75rem;
+  }
+
+  .navbar-nav {
+    width: 240px;
+    padding: 30px 20px;
+    gap: 20px;
+  }
+
+  .navbar-link {
+    font-size: 1rem;
+  }
+
+  .navbar-hamburger {
+    width: 32px;
+    height: 32px;
+  }
+}
+
+
+/* ===== TABLET VIEW ===== */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .navbar-inner {
+    padding: 0 24px;
+  }
+
+  .navbar-nav {
+    gap: 20px;
+  }
+
+  .navbar-link {
+    font-size: 0.85rem;
+  }
+
+  .navbar-cta-desktop {
+    padding: 8px 18px;
+    font-size: 0.8rem;
+  }
+
+  .logo-text {
+    font-size: 1.05rem;
+  }
+}
+
+
+/* ===== LARGE DESKTOP IMPROVEMENT ===== */
+@media (min-width: 1200px) {
+  .navbar-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  .navbar-nav {
+    gap: 36px;
+  }
+}
+
+
+/* ===== ULTRA LARGE SCREENS ===== */
+@media (min-width: 1440px) {
+  .navbar-inner {
+    max-width: 1350px;
+  }
+
+  .navbar-link {
+    font-size: 0.95rem;
+  }
+}

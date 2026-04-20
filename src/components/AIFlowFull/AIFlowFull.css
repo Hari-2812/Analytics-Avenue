@@ -235,3 +235,125 @@
   50% { opacity: 1; }
   100% { opacity: 0.6; }
 }
+/* =========================
+   📱 MOBILE FINAL FIX (CLEAN + STRUCTURED)
+========================= */
+@media (max-width: 768px) {
+
+  .ai-flow-section {
+    padding: 60px 16px;
+  }
+
+  /* STACK EVERYTHING */
+  .ai-flow-container {
+    flex-direction: column;
+    gap: 30px;
+  }
+
+  /* TITLE */
+  .ai-left h1 {
+    font-size: 38px;
+    text-align: center;
+    line-height: 1.2;
+  }
+
+  /* SKILLS CARD */
+  .ai-skills {
+    padding: 18px;
+    border-radius: 12px;
+    background: rgba(15,23,42,0.6);
+    border: 1px solid rgba(255,255,255,0.05);
+  }
+
+  .ai-skills::before {
+    display: none;
+  }
+
+  /* PHASE */
+  .ai-phases {
+    gap: 25px;
+  }
+
+  .phase {
+    flex-direction: column;
+    align-items: flex-start;
+
+    padding: 14px;
+    border-radius: 12px;
+
+    background: rgba(15,23,42,0.6);
+    border: 1px solid rgba(255,255,255,0.05);
+  }
+
+  .bracket {
+    display: none;
+  }
+
+  /* OUTPUT */
+  .ai-output {
+    gap: 20px;
+  }
+
+  .output-group {
+    flex-direction: column;
+    align-items: flex-start;
+
+    padding: 14px;
+    border-radius: 12px;
+
+    background: rgba(15,23,42,0.6);
+    border: 1px solid rgba(255,255,255,0.05);
+  }
+
+  .plus {
+    display: none;
+  }
+
+  /* TEXT */
+  .skill-group li,
+  .output-group li {
+    font-size: 0.9rem;
+  }
+
+  /* HEADER */
+  .ai-title {
+    font-size: 28px;
+  }
+
+  .ai-subtitle {
+    font-size: 0.9rem;
+    padding: 0 10px;
+  }
+}
+
+/* =========================
+   📱 SMALL MOBILE
+========================= */
+@media (max-width: 480px) {
+
+  .ai-left h1 {
+    font-size: 30px;
+  }
+
+  .ai-title {
+    font-size: 24px;
+  }
+
+  .ai-subtitle {
+    font-size: 0.85rem;
+  }
+}
+
+/* =========================
+   📲 TABLET FIX
+========================= */
+@media (max-width: 1024px) {
+
+  .ai-flow-container {
+    gap: 50px;
+  }
+
+  .ai-left h1 {
+    font-size: 60px;
+  }
+}

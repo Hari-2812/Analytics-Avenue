@@ -20,7 +20,6 @@
   background: rgba(255,255,255,0.05);
   border-radius: 14px;
   padding: 16px;
-
   height: fit-content;
 }
 
@@ -122,9 +121,101 @@
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* MOBILE */
-@media (max-width: 768px) {
+/* =========================
+   📲 TABLET FIX
+========================= */
+@media (max-width: 1024px) {
   .podcast-layout {
-    grid-template-columns: 1fr;
+    grid-template-columns: 220px 1fr;
+    gap: 20px;
+  }
+
+  .podcast-content iframe {
+    height: 360px;
+  }
+}
+
+/* =========================
+   📱 MOBILE FIX (MAIN)
+========================= */
+/* =========================
+   📱 MOBILE FINAL FIX
+========================= */
+@media (max-width: 768px) {
+
+  .podcast-page {
+    padding: 60px 14px;
+  }
+
+  .podcast-layout {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  /* 🔥 FORCE ORDER (VIDEO FIRST) */
+  .podcast-content {
+    order: 1;
+  }
+
+  .podcast-sidebar {
+    order: 2;
+  }
+
+  /* SIDEBAR BACK TO NORMAL LIST */
+  .podcast-sidebar {
+    display: block;
+    padding: 14px;
+  }
+
+  .podcast-sidebar h3 {
+    display: block;
+    margin-bottom: 12px;
+  }
+
+  .podcast-item {
+    margin-bottom: 8px;
+    width: 100%;
+  }
+
+  /* VIDEO SIZE FIX */
+  .podcast-content iframe {
+    height: 230px;
+  }
+
+  .video-thumb img {
+    height: 230px;
+    object-fit: cover;
+  }
+
+  /* TEXT */
+  .podcast-details {
+    font-size: 0.9rem;
+  }
+}
+/* =========================
+   📱 SMALL MOBILE
+========================= */
+@media (max-width: 480px) {
+
+  .podcast-item {
+    min-width: 140px;
+  }
+
+  .podcast-content iframe {
+    height: 200px;
+  }
+
+  .video-thumb img {
+    height: 200px;
+  }
+}
+
+/* =========================
+   🖥️ DESKTOP POLISH
+========================= */
+@media (min-width: 1200px) {
+  .podcast-layout {
+    max-width: 1250px;
   }
 }

@@ -273,3 +273,95 @@
   border-color: var(--accent-indigo);
   color: var(--accent-indigo);
 }
+/* =========================
+   📱 MOBILE → 2 COLUMN GRID
+========================= */
+@media (max-width: 768px) {
+
+  /* container */
+  .flow-container {
+    width: 100% !important;
+    height: auto !important;
+
+    margin: 30px auto;
+
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 🔥 2 columns */
+    gap: 12px;
+
+    padding: 0 10px;
+  }
+
+  /* CORE → FULL WIDTH TOP */
+  .core {
+    grid-column: span 2;
+
+    /* 🔥 PERFECT CENTER FIX */
+    justify-self: center;   /* center inside grid */
+    align-self: center;
+
+    width: 100%;
+    max-width: 260px;       /* keeps it compact */
+
+    text-align: center;
+
+    position: relative;
+    transform: none;
+    margin-bottom: 10px;
+    padding: 26px;
+  }
+
+
+
+  /* NODE */
+  .node {
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    transform: none !important;
+
+    width: 100%;
+    height: auto;
+
+    display: flex;
+    flex-direction: column; /* better for small cards */
+    align-items: center;
+    justify-content: center;
+
+    padding: 12px;
+    border-radius: 10px;
+    text-align: center;
+  }
+
+  /* ICON */
+  .icon {
+    font-size: 22px;
+    margin-bottom: 6px;
+  }
+
+  /* TEXT */
+  .node span {
+    font-size: 0.85rem;
+  }
+
+  /* HOVER */
+  .node:hover {
+    transform: translateY(-2px);
+  }
+
+  /* PLACEMENT CARD */
+  .placement-card {
+    grid-column: span 2; /* full width */
+    width: 100%;
+    padding: 16px;
+  }
+
+  /* TITLE */
+  .title {
+    font-size: 26px;
+  }
+
+  .flow-subtitle {
+    font-size: 0.95rem;
+  }
+}

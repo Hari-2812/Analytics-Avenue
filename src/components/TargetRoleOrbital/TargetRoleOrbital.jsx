@@ -24,6 +24,8 @@ export default function TargetRoleOrbital() {
   const coreRef = useRef()
 
   useEffect(() => {
+    const isMobile = window.innerWidth <= 768
+
     const positions = [
       { x: -240, y: -160 },
       { x: 240, y: -160 },
@@ -36,7 +38,12 @@ export default function TargetRoleOrbital() {
     ]
 
     nodesRef.current.forEach((node, i) => {
-      // ENTRY ANIMATION (VISIBLE FROM CORNERS)
+
+      if (isMobile) {
+        gsap.set(node, { clearProps: "all" })
+        return
+      }
+
       gsap.fromTo(
         node,
         {
@@ -56,7 +63,6 @@ export default function TargetRoleOrbital() {
         }
       )
 
-      // FLOATING EFFECT
       gsap.to(node, {
         y: positions[i].y + 12,
         repeat: -1,
@@ -67,37 +73,30 @@ export default function TargetRoleOrbital() {
       })
     })
 
-    // TITLE FADE IN
-    gsap.fromTo(titleRef.current, { opacity: 0, y: -20 }, { opacity: 1, y: 0, duration: 1, delay: 0.2 })
+    if (!isMobile) {
+      gsap.fromTo(titleRef.current, { opacity: 0, y: -20 }, { opacity: 1, y: 0 })
+      gsap.fromTo(subtitleRef.current, { opacity: 0 }, { opacity: 1 })
+      gsap.to(coreRef.current, { scale: 1.05, repeat: -1, yoyo: true })
+    }
 
-    // SUBTITLE FADE IN
-    gsap.fromTo(subtitleRef.current, { opacity: 0 }, { opacity: 1, duration: 1, delay: 0.5 })
-
-    // CORE PULSE
-    gsap.to(coreRef.current, { scale: 1.05, repeat: -1, yoyo: true, duration: 3, ease: 'sine.inOut', delay: 2 })
   }, [])
 
-  // PLACEMENT CARD ANIMATION
   useEffect(() => {
     if (selectedIndustry && cardRef.current) {
-      gsap.fromTo(cardRef.current, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5 })
+      gsap.fromTo(cardRef.current, { opacity: 0, y: 20 }, { opacity: 1, y: 0 })
     }
   }, [selectedIndustry])
 
   const handleClick = (e, path, item) => {
-    setSelectedIndustry(item);
-    gsap.to(e.currentTarget, { scale: 0.95, duration: 0.1, yoyo: true, repeat: 1, ease: 'power2.inOut' });
-    const ripple = document.createElement('span')
-    ripple.className = 'ripple'
-    e.currentTarget.appendChild(ripple)
-
-    setTimeout(() => ripple.remove(), 600)
+    setSelectedIndustry(item)
+    gsap.to(e.currentTarget, { scale: 0.95, duration: 0.1, yoyo: true, repeat: 1 })
     navigate(path)
   }
 
   return (
     <>
       <section className="flow-section">
+
         <h2 ref={titleRef} className="title">
           AI Converging Across <span>Industries</span>
         </h2>
@@ -108,10 +107,8 @@ export default function TargetRoleOrbital() {
 
         <div className="flow-container">
 
-          {/* CENTER */}
           <div ref={coreRef} className="core">AI CORE</div>
 
-          {/* NODES */}
           {industries.map((item, i) => (
             <div
               key={item.title}
@@ -123,6 +120,7 @@ export default function TargetRoleOrbital() {
               <span>{item.title}</span>
             </div>
           ))}
+
         </div>
       </section>
 
